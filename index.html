@@ -587,6 +587,8 @@ body {
   }
   .mobile-menu-fab {
     display: flex;
+    bottom: 70px !important;
+    right: 10px !important;
   }
 }
 
@@ -649,6 +651,7 @@ body {
 </div>
 
 <!-- STICKY NAV -->
+
 <nav class="sticky-nav">
   <div class="nav-inner">
     <button class="nav-btn active" onclick="showSection('food', this)">Food</button>
@@ -662,12 +665,14 @@ body {
 <!-- ═══════════════════════════════════════════════ -->
 <!--                  FOOD SECTION                   -->
 <!-- ═══════════════════════════════════════════════ -->
+
 <div class="mobile-menu-backdrop" id="mobileMenuBackdrop" onclick="closeMobileMenu()"></div>
 <div class="mobile-menu-sheet" id="mobileMenuSheet">
   <button class="mobile-menu-item active" id="foodMenuToggle" data-section="food" onclick="toggleFoodSubmenu(event)">
     <span>Food</span>
     <span class="mobile-menu-item-count">▾</span>
   </button>
+
   <div class="mobile-submenu" id="foodSubmenu">
     <button class="mobile-submenu-item" onclick="showFoodSubsection('food-culinary-genesis')">Culinary Genesis</button>
     <button class="mobile-submenu-item" onclick="showFoodSubsection('food-soups-salads')">Soups &amp; Salads</button>
@@ -678,6 +683,7 @@ body {
     <button class="mobile-submenu-item" onclick="showFoodSubsection('food-stuffed-bites')">Stuffed Bites</button>
     <button class="mobile-submenu-item" onclick="showFoodSubsection('food-desserts')">Desserts</button>
   </div>
+
   <button class="mobile-menu-item" id="coffeeMenuToggle" data-section="coffee" onclick="toggleCoffeeSubmenu(event)">
     <span>Coffee</span>
     <span class="mobile-menu-item-count">▾</span>
@@ -694,6 +700,10 @@ body {
     <span>Drinks</span>
     <span class="mobile-menu-item-count">▾</span>
   </button>
+
+
+
+
   <div class="mobile-submenu" id="drinksSubmenu">
     <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-classic-shakes')">Classic Shakes</button>
     <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-vegan-shakes')">Vegan Shakes</button>
@@ -705,6 +715,8 @@ body {
     <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-fresh-juice')">Fresh Juice</button>
     <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-house-water')">House Water</button>
   </div>
+
+
 
   <!-- <button class="mobile-menu-item" data-section="info" onclick="showSection('info'); closeMobileMenu();">
     <span>Info</span>
@@ -1484,6 +1496,7 @@ body {
     <div class="cat-name">Classic Shakes</div>
     <div class="cat-rule"></div>
   </div>
+
   <div class="items-card">
     <div class="item"><div class="item-left"><div class="item-name">Vanilla</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>350</div></div></div>
     <div class="item"><div class="item-left"><div class="item-name">Chocolate</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>350</div></div></div>
@@ -1646,7 +1659,7 @@ body {
 
 
 
-    
+
 
     <div style="background: var(--white); border-radius: 8px; border: 1px solid var(--border); padding: 20px; margin-bottom: 16px;">
       <div style="font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--ink); font-weight: 400; margin-bottom: 12px;">Allergen Information</div>
