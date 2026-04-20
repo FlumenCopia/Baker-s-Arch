@@ -202,11 +202,22 @@ body {
   color: var(--white);
   border-radius: 22px;
   padding: 14px;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   box-shadow: 0 18px 48px rgba(0,0,0,0.34);
   opacity: 0;
   pointer-events: none;
   transform: translateY(14px);
   transition: opacity 0.22s ease, transform 0.22s ease;
+}
+.mobile-menu-sheet::-webkit-scrollbar {
+  width: 6px;
+}
+.mobile-menu-sheet::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.24);
+  border-radius: 999px;
 }
 .mobile-menu-sheet.open {
   opacity: 1;
@@ -576,14 +587,33 @@ body {
     <button class="mobile-submenu-item" onclick="showFoodSubsection('food-stuffed-bites')">Stuffed Bites</button>
     <button class="mobile-submenu-item" onclick="showFoodSubsection('food-desserts')">Desserts</button>
   </div>
-  <button class="mobile-menu-item" data-section="coffee" onclick="showSection('coffee'); closeMobileMenu();">
+  <button class="mobile-menu-item" id="coffeeMenuToggle" data-section="coffee" onclick="toggleCoffeeSubmenu(event)">
     <span>Coffee</span>
-    <span class="mobile-menu-item-count"></span>
+    <span class="mobile-menu-item-count">▾</span>
   </button>
-  <button class="mobile-menu-item" data-section="drinks" onclick="showSection('drinks'); closeMobileMenu();">
+  <div class="mobile-submenu" id="coffeeSubmenu">
+    <button class="mobile-submenu-item" onclick="showCoffeeSubsection('coffee-hot-coffee')">Hot Coffee</button>
+    <button class="mobile-submenu-item" onclick="showCoffeeSubsection('coffee-cold-coffee')">Cold Coffee</button>
+    <button class="mobile-submenu-item" onclick="showCoffeeSubsection('coffee-brew')">Brew</button>
+    <button class="mobile-submenu-item" onclick="showCoffeeSubsection('coffee-matcha')">Matcha</button>
+    <button class="mobile-submenu-item" onclick="showCoffeeSubsection('coffee-tea')">Tea</button>
+    <button class="mobile-submenu-item" onclick="showCoffeeSubsection('coffee-iced-tea')">Iced Tea</button>
+  </div>
+  <button class="mobile-menu-item" id="drinksMenuToggle" data-section="drinks" onclick="toggleDrinksSubmenu(event)">
     <span>Drinks</span>
-    <span class="mobile-menu-item-count"></span>
+    <span class="mobile-menu-item-count">▾</span>
   </button>
+  <div class="mobile-submenu" id="drinksSubmenu">
+    <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-classic-shakes')">Classic Shakes</button>
+    <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-vegan-shakes')">Vegan Shakes</button>
+    <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-smoothies')">Smoothies</button>
+    <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-frappe')">Frappe</button>
+    <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-mocktails')">Mocktails</button>
+    <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-probiotics')">House Fermented Probiotic Drinks</button>
+    <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-detox')">Detox</button>
+    <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-fresh-juice')">Fresh Juice</button>
+    <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-house-water')">House Water</button>
+  </div>
 
 
 
@@ -1161,7 +1191,7 @@ body {
   </div>
 
   <!-- HOT COFFEE -->
-  <div class="cat-header" style="padding-top: 20px;">
+  <div class="cat-header" id="coffee-hot-coffee" style="padding-top: 20px;">
     <div class="cat-name">Hot Coffee</div>
     <div class="cat-rule"></div>
   </div>
@@ -1227,7 +1257,7 @@ body {
   <div class="section-gap"></div>
 
   <!-- COLD COFFEE -->
-  <div class="cat-header">
+  <div class="cat-header" id="coffee-cold-coffee">
     <div class="cat-name">Cold Coffee</div>
     <div class="cat-rule"></div>
   </div>
@@ -1245,7 +1275,7 @@ body {
   <div class="section-gap"></div>
 
   <!-- BREW -->
-  <div class="cat-header">
+  <div class="cat-header" id="coffee-brew">
     <div class="cat-name">Brew</div>
     <div class="cat-rule"></div>
   </div>
@@ -1271,7 +1301,7 @@ body {
   <div class="section-gap"></div>
 
   <!-- MATCHA -->
-  <div class="cat-header">
+  <div class="cat-header" id="coffee-matcha">
     <div class="cat-name">Matcha</div>
     <div class="cat-rule"></div>
   </div>
@@ -1293,7 +1323,7 @@ body {
   <div class="section-gap"></div>
 
   <!-- TEA -->
-  <div class="cat-header">
+  <div class="cat-header" id="coffee-tea">
     <div class="cat-name">Tea</div>
     <div class="cat-rule"></div>
   </div>
@@ -1324,7 +1354,7 @@ body {
   <div class="section-gap"></div>
 
   <!-- ICED TEA -->
-  <div class="cat-header">
+  <div class="cat-header" id="coffee-iced-tea">
     <div class="cat-name">Iced Tea</div>
     <div class="cat-rule"></div>
   </div>
@@ -1361,7 +1391,7 @@ body {
 <section class="menu-section" id="section-drinks">
 
   <!-- SHAKES -->
-  <div class="cat-header" style="padding-top: 20px;">
+  <div class="cat-header" id="drinks-classic-shakes" style="padding-top: 20px;">
     <div class="cat-name">Classic Shakes</div>
     <div class="cat-rule"></div>
   </div>
@@ -1379,7 +1409,7 @@ body {
   <div class="section-gap"></div>
 
   <!-- VEGAN SHAKES -->
-  <div class="cat-header">
+  <div class="cat-header" id="drinks-vegan-shakes">
     <div class="cat-name">Vegan Shakes</div>
     <div class="cat-rule"></div>
   </div>
@@ -1401,7 +1431,7 @@ body {
   <div class="section-gap"></div>
 
   <!-- SMOOTHIES -->
-  <div class="cat-header">
+  <div class="cat-header" id="drinks-smoothies">
     <div class="cat-name">Smoothies</div>
     <div class="cat-rule"></div>
   </div>
@@ -1415,7 +1445,7 @@ body {
   <div class="section-gap"></div>
 
   <!-- FRAPPE -->
-  <div class="cat-header">
+  <div class="cat-header" id="drinks-frappe">
     <div class="cat-name">Frappe</div>
     <div class="cat-rule"></div>
   </div>
@@ -1429,7 +1459,7 @@ body {
   <div class="section-gap"></div>
 
   <!-- MOCKTAILS -->
-  <div class="cat-header">
+  <div class="cat-header" id="drinks-mocktails">
     <div class="cat-name">Mocktails</div>
     <div class="cat-rule"></div>
     <div class="cat-note">House crafted — all signature</div>
@@ -1449,7 +1479,7 @@ body {
   <div class="section-gap"></div>
 
   <!-- PROBIOTICS -->
-  <div class="cat-header">
+  <div class="cat-header" id="drinks-probiotics">
     <div class="cat-name">House Fermented Probiotic Drinks</div>
     <div class="cat-rule"></div>
   </div>
@@ -1461,7 +1491,7 @@ body {
   <div class="section-gap"></div>
 
   <!-- DETOX -->
-  <div class="cat-header">
+  <div class="cat-header" id="drinks-detox">
     <div class="cat-name">Detox</div>
     <div class="cat-rule"></div>
     <div class="cat-note">Cold pressed — house blended</div>
@@ -1477,7 +1507,7 @@ body {
   <div class="section-gap"></div>
 
   <!-- FRESH JUICE -->
-  <div class="cat-header">
+  <div class="cat-header" id="drinks-fresh-juice">
     <div class="cat-name">Fresh Juice</div>
     <div class="cat-rule"></div>
   </div>
@@ -1490,7 +1520,7 @@ body {
   <div class="section-gap"></div>
 
   <!-- HOUSE WATER -->
-  <div class="cat-header">
+  <div class="cat-header" id="drinks-house-water">
     <div class="cat-name">House Water</div>
     <div class="cat-rule"></div>
   </div>
@@ -1586,6 +1616,26 @@ function setFoodSubmenuOpen(isOpen) {
   toggle.setAttribute('aria-expanded', String(isOpen));
 }
 
+function setCoffeeSubmenuOpen(isOpen) {
+  const submenu = document.getElementById('coffeeSubmenu');
+  const toggle = document.getElementById('coffeeMenuToggle');
+  if (!submenu || !toggle) return;
+
+  submenu.classList.toggle('open', isOpen);
+  toggle.classList.toggle('expanded', isOpen);
+  toggle.setAttribute('aria-expanded', String(isOpen));
+}
+
+function setDrinksSubmenuOpen(isOpen) {
+  const submenu = document.getElementById('drinksSubmenu');
+  const toggle = document.getElementById('drinksMenuToggle');
+  if (!submenu || !toggle) return;
+
+  submenu.classList.toggle('open', isOpen);
+  toggle.classList.toggle('expanded', isOpen);
+  toggle.setAttribute('aria-expanded', String(isOpen));
+}
+
 function showSection(id, btn, options = {}) {
   const { closeMenu = true, scrollToTop = true } = options;
   document.querySelectorAll('.menu-section').forEach(section => section.classList.remove('active'));
@@ -1602,11 +1652,51 @@ function toggleFoodSubmenu(event) {
   const willOpen = !submenu.classList.contains('open');
 
   showSection('food', null, { closeMenu: false, scrollToTop: false });
+  setCoffeeSubmenuOpen(false);
+  setDrinksSubmenuOpen(false);
   setFoodSubmenuOpen(willOpen);
 }
 
 function showFoodSubsection(targetId) {
   showSection('food', null, { closeMenu: true, scrollToTop: false });
+  requestAnimationFrame(() => {
+    const target = document.getElementById(targetId);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+}
+
+function toggleCoffeeSubmenu(event) {
+  if (event) event.stopPropagation();
+  const submenu = document.getElementById('coffeeSubmenu');
+  const willOpen = !submenu.classList.contains('open');
+
+  showSection('coffee', null, { closeMenu: false, scrollToTop: false });
+  setFoodSubmenuOpen(false);
+  setDrinksSubmenuOpen(false);
+  setCoffeeSubmenuOpen(willOpen);
+}
+
+function showCoffeeSubsection(targetId) {
+  showSection('coffee', null, { closeMenu: true, scrollToTop: false });
+  requestAnimationFrame(() => {
+    const target = document.getElementById(targetId);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+}
+
+function toggleDrinksSubmenu(event) {
+  if (event) event.stopPropagation();
+  const submenu = document.getElementById('drinksSubmenu');
+  const willOpen = !submenu.classList.contains('open');
+
+  showSection('drinks', null, { closeMenu: false, scrollToTop: false });
+  setFoodSubmenuOpen(false);
+  setCoffeeSubmenuOpen(false);
+  setDrinksSubmenuOpen(willOpen);
+}
+
+function showDrinksSubsection(targetId) {
+  showSection('drinks', null, { closeMenu: true, scrollToTop: false });
   requestAnimationFrame(() => {
     const target = document.getElementById(targetId);
     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1622,7 +1712,11 @@ function toggleMobileMenu() {
   sheet.classList.toggle('open', willOpen);
   backdrop.classList.toggle('open', willOpen);
   fab.setAttribute('aria-expanded', String(willOpen));
-  if (!willOpen) setFoodSubmenuOpen(false);
+  if (!willOpen) {
+    setFoodSubmenuOpen(false);
+    setCoffeeSubmenuOpen(false);
+    setDrinksSubmenuOpen(false);
+  }
 }
 
 function closeMobileMenu() {
@@ -1635,6 +1729,8 @@ function closeMobileMenu() {
   backdrop.classList.remove('open');
   fab.setAttribute('aria-expanded', 'false');
   setFoodSubmenuOpen(false);
+  setCoffeeSubmenuOpen(false);
+  setDrinksSubmenuOpen(false);
 }
 
 // ═══ SCROLL TO TOP BUTTON ═══
