@@ -67,8 +67,8 @@ body {
 }
 .cover-logo {
   display: block;
-  width: 100%;
-  height: auto;
+  width: 40px;
+  height: 40px;
   margin: 0 auto;
   mix-blend-mode: screen;
 }
@@ -157,7 +157,7 @@ body {
   height: 68px;
   border: none;
   border-radius: 50%;
-  background: #090b12;
+  background: #000;
   color: var(--white);
   box-shadow: 0 14px 30px rgba(0,0,0,0.28);
   display: none;
@@ -528,7 +528,9 @@ body {
   </button>
 </div>
 <button class="mobile-menu-fab" id="mobileMenuFab" onclick="toggleMobileMenu()" aria-label="Open menu">
-  <span class="fab-icon">≡</span>
+  <span class="fab-icon">
+    <img class="cover-logo" src="Logo2.png" alt="Baker's Arch logo">
+  </span>
   <span class="fab-label">Menu</span>
 </button>
 
