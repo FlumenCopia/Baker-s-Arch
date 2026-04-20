@@ -62,18 +62,22 @@ body {
   pointer-events: none;
 }
 .cover-arch {
-  width: min(520px, 90vw);
-  margin: 0 auto 4px;
+  width: min(460px, 100%);
+  margin: 0 auto;
+  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  line-height: 0;
 }
 .cover-logo {
   display: block;
   width: min(460px, 100%);
   height: auto;
+  padding: 0;
   margin: 0 auto;
   mix-blend-mode: screen;
+  vertical-align: top;
 }
 
 .cover-logo2 {
@@ -87,7 +91,7 @@ body {
   font-family: 'DM Sans', sans-serif;
   font-size: 13px; color: rgba(255,255,255,0.7);
   letter-spacing: 3px; text-transform: uppercase;
-  margin-top: 10px;
+  margin-top: 0;
 }
 .cover-script {
   display: none;
@@ -168,7 +172,7 @@ body {
   height: 68px;
   border: none;
   border-radius: 50%;
-  background: #000;
+  background: #FF5722;
   color: var(--white);
   box-shadow: 0 14px 30px rgba(0,0,0,0.28);
   display: none;
@@ -482,7 +486,6 @@ body {
   <div class="cover-arch">
     <img class="cover-logo" src="Logo.png" alt="Baker's Arch logo">
   </div>
-    <!-- <div class="cover-brandname">Baker's Arch</div> -->
   <div class="cover-script">a garden café</div>
   <div class="cover-tagline">Trivandrum, Kerala</div>
   <div class="cover-sub">Created with passion and served with love.<br>Food unites people.</div>
