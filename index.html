@@ -267,22 +267,23 @@ body {
 
 .mobile-menu-sheet {
   position: fixed;
-  left: 50%;
-  width: min(460px, calc(100vw - 32px));
-  bottom: 108px;
+  right: 18px;
+  width: min(420px, calc(100vw - 32px));
+  top: 92px;
+  bottom: 24px;
   z-index: 215;
   background: #090b12;
   color: var(--white);
   border-radius: 22px;
   padding: 14px;
-  max-height: calc(100vh - 140px);
+  max-height: none;
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   box-shadow: 0 18px 48px rgba(0,0,0,0.34);
   opacity: 0;
   pointer-events: none;
-  transform: translateX(-50%) translateY(14px);
+  transform: translateX(26px);
   transition: opacity 0.22s ease, transform 0.22s ease;
 }
 .mobile-menu-sheet::-webkit-scrollbar {
@@ -295,7 +296,7 @@ body {
 .mobile-menu-sheet.open {
   opacity: 1;
   pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
+  transform: translateX(0);
 }
 .mobile-menu-item {
   width: 100%;
@@ -593,6 +594,12 @@ body {
     bottom: 70px !important;
     right: 10px !important;
   }
+  .mobile-menu-sheet {
+    right: 10px;
+    top: 82px;
+    bottom: 88px;
+    width: min(360px, calc(100vw - 20px));
+  }
 }
 
 @media (max-width: 560px) {
@@ -603,7 +610,12 @@ body {
     display: none;
   }
   .mobile-menu-sheet {
-    width: calc(100vw - 24px);
+    right: 12px;
+    left: 12px;
+    top: auto;
+    bottom: 154px;
+    width: auto;
+    max-height: calc(100vh - 220px);
   }
 }
 </style>
