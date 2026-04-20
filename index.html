@@ -63,7 +63,7 @@ body {
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: all 0.2s;
-  display: none;
+  display: block;
   z-index: 10;
 }
 .cover-info-toggle:hover, .cover-info-toggle:active {
@@ -599,9 +599,6 @@ body {
   .nav-inner {
     display: none;
   }
-  .cover-info-toggle {
-    display: block;
-  }
 }
 </style>
 </head>
@@ -609,7 +606,7 @@ body {
 
 <!-- COVER -->
 <div class="cover">
-  <button class="cover-info-toggle" id="coverInfoToggle" onclick="toggleCoverInfo()" aria-label="Toggle info">
+  <button class="cover-info-toggle" id="coverInfoToggle" type="button" onclick="toggleCoverInfo()" aria-label="Toggle info" aria-controls="coverInfoDropdown" aria-expanded="false">
 <i class="bi bi-list"></i>
 
   </button>
