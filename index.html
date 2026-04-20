@@ -269,14 +269,13 @@ body {
   position: fixed;
   right: 18px;
   width: min(420px, calc(100vw - 32px));
-  top: 92px;
-  bottom: 24px;
+  bottom:120px;
   z-index: 215;
   background: #090b12;
   color: var(--white);
   border-radius: 22px;
   padding: 14px;
-  max-height: none;
+  max-height: min(440px, calc(100vh - 140px));
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
@@ -597,8 +596,8 @@ body {
   .mobile-menu-sheet {
     right: 10px;
     top: 82px;
-    bottom: 88px;
     width: min(360px, calc(100vw - 20px));
+    max-height: min(400px, calc(100vh - 170px));
   }
 }
 
@@ -613,9 +612,9 @@ body {
     right: 12px;
     left: 12px;
     top: auto;
-    bottom: 154px;
+    bottom: 100px;
     width: auto;
-    max-height: calc(100vh - 220px);
+    max-height: min(320px, calc(100vh - 220px));
   }
 }
 </style>
