@@ -236,6 +236,44 @@ body {
 .mobile-menu-item-count {
   color: rgba(255,255,255,0.68);
   font-size: 15px;
+  transition: transform 0.22s ease;
+}
+.mobile-submenu {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin: 0 0 0 14px;
+  padding-left: 12px;
+  border-left: 1px solid rgba(255,255,255,0.12);
+  transition: max-height 0.22s ease, opacity 0.22s ease, margin 0.22s ease;
+}
+.mobile-submenu.open {
+  max-height: 420px;
+  opacity: 1;
+  margin: 4px 0 8px 14px;
+}
+.mobile-menu-item.expanded .mobile-menu-item-count {
+  transform: rotate(180deg);
+}
+.mobile-submenu-item {
+  width: 100%;
+  padding: 10px 12px;
+  background: transparent;
+  color: rgba(255,255,255,0.72);
+  border: none;
+  border-radius: 12px;
+  text-align: left;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+}
+.mobile-submenu-item + .mobile-submenu-item {
+  margin-top: 2px;
+}
+.mobile-submenu-item:hover,
+.mobile-submenu-item:active {
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.92);
 }
 
 .mobile-menu-backdrop {
@@ -524,10 +562,20 @@ body {
 <!-- ═══════════════════════════════════════════════ -->
 <div class="mobile-menu-backdrop" id="mobileMenuBackdrop" onclick="closeMobileMenu()"></div>
 <div class="mobile-menu-sheet" id="mobileMenuSheet">
-  <button class="mobile-menu-item active" data-section="food" onclick="showSection('food'); closeMobileMenu();">
+  <button class="mobile-menu-item active" id="foodMenuToggle" data-section="food" onclick="toggleFoodSubmenu(event)">
     <span>Food</span>
-    <span class="mobile-menu-item-count"></span>
+    <span class="mobile-menu-item-count">▾</span>
   </button>
+  <div class="mobile-submenu" id="foodSubmenu">
+    <button class="mobile-submenu-item" onclick="showFoodSubsection('food-culinary-genesis')">Culinary Genesis</button>
+    <button class="mobile-submenu-item" onclick="showFoodSubsection('food-soups-salads')">Soups &amp; Salads</button>
+    <button class="mobile-submenu-item" onclick="showFoodSubsection('food-sensational-platters')">Our Sensational Platters</button>
+    <button class="mobile-submenu-item" onclick="showFoodSubsection('food-fusion-grill')">Our Fusion Grill</button>
+    <button class="mobile-submenu-item" onclick="showFoodSubsection('food-global-big-bites')">Global Big Bites</button>
+    <button class="mobile-submenu-item" onclick="showFoodSubsection('food-glazed-bites')">Glazed Bites</button>
+    <button class="mobile-submenu-item" onclick="showFoodSubsection('food-stuffed-bites')">Stuffed Bites</button>
+    <button class="mobile-submenu-item" onclick="showFoodSubsection('food-desserts')">Desserts</button>
+  </div>
   <button class="mobile-menu-item" data-section="coffee" onclick="showSection('coffee'); closeMobileMenu();">
     <span>Coffee</span>
     <span class="mobile-menu-item-count"></span>
@@ -536,11 +584,16 @@ body {
     <span>Drinks</span>
     <span class="mobile-menu-item-count"></span>
   </button>
-  <button class="mobile-menu-item" data-section="info" onclick="showSection('info'); closeMobileMenu();">
+
+
+
+  <!-- <button class="mobile-menu-item" data-section="info" onclick="showSection('info'); closeMobileMenu();">
     <span>Info</span>
     <span class="mobile-menu-item-count"></span>
-  </button>
+  </button> -->
 </div>
+
+
 <button class="mobile-menu-fab" id="mobileMenuFab" onclick="toggleMobileMenu()" aria-label="Open menu">
   <span class="fab-icon">
     <img class="cover-logo2" src="Logo2.png" alt="Baker's Arch logo">
@@ -551,7 +604,7 @@ body {
 <section class="menu-section active" id="section-food">
 
   <!-- CULINARY GENESIS -->
-  <div class="cat-header">
+  <div class="cat-header" id="food-culinary-genesis">
     <div class="cat-name">Culinary Genesis</div>
     <div class="cat-rule"></div>
     <div class="cat-note">Small plates & starters</div>
@@ -668,7 +721,7 @@ body {
   <div class="section-gap"></div>
 
   <!-- SOUPS & SALADS -->
-  <div class="cat-header">
+  <div class="cat-header" id="food-soups-salads">
     <div class="cat-name">Soups & Salads</div>
     <div class="cat-rule"></div>
   </div>
@@ -725,7 +778,7 @@ body {
   <div class="section-gap"></div>
 
   <!-- SENSATIONAL PLATTERS -->
-  <div class="cat-header">
+  <div class="cat-header" id="food-sensational-platters">
     <div class="cat-name">Our Sensational Platters</div>
     <div class="cat-rule"></div>
   </div>
@@ -743,7 +796,7 @@ body {
   <div class="section-gap"></div>
 
   <!-- FUSION GRILL -->
-  <div class="grill-banner">
+  <div class="grill-banner" id="food-fusion-grill">
     <div class="grill-title">Our Fusion Grill</div>
     <div class="grill-subtitle">"A blend of smoking-braising & grilling — where the heat can spice & texture up the meat"</div>
   </div>
@@ -778,7 +831,7 @@ body {
   <div class="section-gap"></div>
 
   <!-- GLOBAL BIG BITES -->
-  <div class="cat-header">
+  <div class="cat-header" id="food-global-big-bites">
     <div class="cat-name">Global Big Bites</div>
     <div class="cat-rule"></div>
     <div class="cat-note">Mains from across the world</div>
@@ -881,7 +934,7 @@ body {
   <div class="section-gap"></div>
 
   <!-- GLAZED BITES -->
-  <div class="cat-header">
+  <div class="cat-header" id="food-glazed-bites">
     <div class="cat-name">Glazed Bites</div>
     <div class="cat-rule"></div>
     <div class="cat-note">Rice, Noodles & Pasta — for sustained energy</div>
@@ -941,7 +994,7 @@ body {
   <div class="section-gap"></div>
 
   <!-- STUFFED BITES -->
-  <div class="cat-header">
+  <div class="cat-header" id="food-stuffed-bites">
     <div class="cat-name">Stuffed Bites</div>
     <div class="cat-rule"></div>
     <div class="cat-note">Burgers, wraps, pizza</div>
@@ -990,7 +1043,7 @@ body {
   <div class="section-gap"></div>
 
   <!-- DESSERTS -->
-  <div class="cat-header">
+  <div class="cat-header" id="food-desserts">
     <div class="cat-name">Desserts</div>
     <div class="cat-rule"></div>
   </div>
@@ -1523,13 +1576,41 @@ function syncActiveMenus(id) {
   });
 }
 
-function showSection(id, btn) {
+function setFoodSubmenuOpen(isOpen) {
+  const submenu = document.getElementById('foodSubmenu');
+  const toggle = document.getElementById('foodMenuToggle');
+  if (!submenu || !toggle) return;
+
+  submenu.classList.toggle('open', isOpen);
+  toggle.classList.toggle('expanded', isOpen);
+  toggle.setAttribute('aria-expanded', String(isOpen));
+}
+
+function showSection(id, btn, options = {}) {
+  const { closeMenu = true, scrollToTop = true } = options;
   document.querySelectorAll('.menu-section').forEach(section => section.classList.remove('active'));
   document.getElementById('section-' + id).classList.add('active');
   syncActiveMenus(id);
   if (btn) btn.classList.add('active');
-  closeMobileMenu();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (closeMenu) closeMobileMenu();
+  if (scrollToTop) window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleFoodSubmenu(event) {
+  if (event) event.stopPropagation();
+  const submenu = document.getElementById('foodSubmenu');
+  const willOpen = !submenu.classList.contains('open');
+
+  showSection('food', null, { closeMenu: false, scrollToTop: false });
+  setFoodSubmenuOpen(willOpen);
+}
+
+function showFoodSubsection(targetId) {
+  showSection('food', null, { closeMenu: true, scrollToTop: false });
+  requestAnimationFrame(() => {
+    const target = document.getElementById(targetId);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
 }
 
 function toggleMobileMenu() {
@@ -1541,6 +1622,7 @@ function toggleMobileMenu() {
   sheet.classList.toggle('open', willOpen);
   backdrop.classList.toggle('open', willOpen);
   fab.setAttribute('aria-expanded', String(willOpen));
+  if (!willOpen) setFoodSubmenuOpen(false);
 }
 
 function closeMobileMenu() {
@@ -1552,6 +1634,7 @@ function closeMobileMenu() {
   sheet.classList.remove('open');
   backdrop.classList.remove('open');
   fab.setAttribute('aria-expanded', 'false');
+  setFoodSubmenuOpen(false);
 }
 
 // ═══ SCROLL TO TOP BUTTON ═══
