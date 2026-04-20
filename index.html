@@ -240,14 +240,15 @@ body {
   right: 18px;
   bottom: 28px;
   z-index: 220;
-  width: 68px;
-  height: 68px;
+  min-width: 86px;
+  height: 72px;
+  padding: 10px 14px;
   border: none;
-  border-radius: 50%;
+  border-radius: 999px;
   background: #FF5722;
   color: var(--white);
   box-shadow: 0 14px 30px rgba(0,0,0,0.28);
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -266,8 +267,8 @@ body {
 
 .mobile-menu-sheet {
   position: fixed;
-  left: 16px;
-  right: 16px;
+  left: 50%;
+  width: min(460px, calc(100vw - 32px));
   bottom: 108px;
   z-index: 215;
   background: #090b12;
@@ -281,7 +282,7 @@ body {
   box-shadow: 0 18px 48px rgba(0,0,0,0.34);
   opacity: 0;
   pointer-events: none;
-  transform: translateY(14px);
+  transform: translateX(-50%) translateY(14px);
   transition: opacity 0.22s ease, transform 0.22s ease;
 }
 .mobile-menu-sheet::-webkit-scrollbar {
@@ -294,7 +295,7 @@ body {
 .mobile-menu-sheet.open {
   opacity: 1;
   pointer-events: auto;
-  transform: translateY(0);
+  transform: translateX(-50%) translateY(0);
 }
 .mobile-menu-item {
   width: 100%;
@@ -586,7 +587,9 @@ body {
     width: 100%;
   }
   .mobile-menu-fab {
-    display: flex;
+    min-width: 72px;
+    height: 72px;
+    padding: 10px 12px;
     bottom: 70px !important;
     right: 10px !important;
   }
@@ -598,6 +601,9 @@ body {
   }
   .nav-inner {
     display: none;
+  }
+  .mobile-menu-sheet {
+    width: calc(100vw - 24px);
   }
 }
 </style>
@@ -722,7 +728,7 @@ body {
 </div>
 
 
-<button class="mobile-menu-fab" id="mobileMenuFab" onclick="toggleMobileMenu()" aria-label="Open menu">
+<button class="mobile-menu-fab" id="mobileMenuFab" type="button" onclick="toggleMobileMenu()" aria-label="Open menu" aria-controls="mobileMenuSheet" aria-expanded="false">
   <span class="fab-icon">
     <img class="cover-logo2" src="Logo2.png" alt="Baker's Arch logo">
   </span>
@@ -1863,10 +1869,6 @@ window.addEventListener('scroll', function() {
   const btn = document.getElementById('scrollBtn');
   if (window.scrollY > 300) btn.classList.add('visible');
   else btn.classList.remove('visible');
-});
-
-window.addEventListener('resize', function() {
-  if (window.innerWidth > 560) closeMobileMenu();
 });
 
 document.addEventListener('keydown', function(event) {
