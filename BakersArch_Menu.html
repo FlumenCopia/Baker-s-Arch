@@ -62,10 +62,21 @@ body {
   pointer-events: none;
 }
 .cover-arch {
-  width: min(320px, 84vw);
-  margin: 0 auto 12px;
+  width: min(520px, 90vw);
+  margin: 0 auto 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .cover-logo {
+  display: block;
+  width: min(460px, 100%);
+  height: auto;
+  margin: 0 auto;
+  mix-blend-mode: screen;
+}
+
+.cover-logo2 {
   display: block;
   width: 40px;
   height: 40px;
@@ -529,7 +540,7 @@ body {
 </div>
 <button class="mobile-menu-fab" id="mobileMenuFab" onclick="toggleMobileMenu()" aria-label="Open menu">
   <span class="fab-icon">
-    <img class="cover-logo" src="Logo2.png" alt="Baker's Arch logo">
+    <img class="cover-logo2" src="Logo2.png" alt="Baker's Arch logo">
   </span>
   <span class="fab-label">Menu</span>
 </button>
