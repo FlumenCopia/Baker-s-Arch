@@ -472,26 +472,44 @@ body {
   padding: 16px 20px;
   border-bottom: 1px solid var(--border);
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 6px 12px;
+  align-items: start;
   background: var(--white);
   transition: background 0.15s;
 }
 .item:last-child { border-bottom: none; }
 .item:active { background: var(--terracotta-pale); }
 
-.item-left { min-width: 0; }
-.item-right { text-align: right; flex-shrink: 0; }
+.item-left {
+  min-width: 0;
+  padding-right: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.item-right { text-align: right; flex-shrink: 0; min-width: 72px; }
 
 .item-name-row {
-  display: flex; align-items: flex-start; gap: 6px;
-  flex-wrap: wrap;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  flex-wrap: nowrap;
+  min-width: 0;
+  max-width: 100%;
+}
+.item-name-leading-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
 }
 .item-name {
   font-family: 'Cormorant Garamond', serif;
   font-size: 19px; font-weight: 500;
   color: var(--ink); line-height: 1.2;
   letter-spacing: 0.2px;
+  min-width: 0;
 }
 .item-desc {
   font-size: 12.5px; color: var(--muted);
@@ -529,15 +547,20 @@ body {
 .item-icons {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  flex-wrap: wrap;
-  margin-top: 1px;
+  gap: 3px;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  margin-top: 0;
+  white-space: nowrap;
+  transform: translateY(-1px);
 }
 .item-time-inline {
   color: var(--muted);
   font-size: 11px;
   letter-spacing: 0.2px;
+  white-space: nowrap;
 }
+
 
 /* ═══════════════ CARD / SECTION BG ═══════════════ */
 .items-card {
@@ -682,6 +705,25 @@ body {
   }
   .nav-inner {
     display: none;
+  }
+  .item {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px 10px;
+  }
+  .item-left {
+    padding-right: 8px;
+  }
+  .item-name-row {
+    align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .item-name-leading-icons {
+    width: auto;
+  }
+  .item-icons {
+    flex-wrap: wrap;
+    white-space: normal;
   }
   .mobile-menu-sheet {
     right: 12px;
@@ -1995,6 +2037,8 @@ function renderMenuIcons() {
       nameRow.appendChild(itemName);
     }
 
+    const leadingIconWrap = document.createElement('span');
+    leadingIconWrap.className = 'item-name-leading-icons';
     const iconWrap = document.createElement('span');
     iconWrap.className = 'item-icons';
 
@@ -2004,6 +2048,19 @@ function renderMenuIcons() {
 
       if (!tagClass) return;
 
+      const isLeadingIcon = tagClass === 'tag-veg' || tagClass === 'tag-nonveg' 
+  
+      || tagClass === 'tag-health' 
+      || tagClass === 'tag-sig' 
+      || tagClass === 'tag-spicy' 
+      || tagClass === 'tag-shellfish';
+
+
+
+
+
+
+
       if (tagClass === 'tag-time') {
         const time = document.createElement('span');
         time.className = 'item-time-inline';
@@ -2012,11 +2069,21 @@ function renderMenuIcons() {
         return;
       }
 
-      iconWrap.appendChild(buildMenuIcon(tagClass, label));
+      const icon = buildMenuIcon(tagClass, label);
+      if (isLeadingIcon) {
+        leadingIconWrap.appendChild(icon);
+      } else {
+        iconWrap.appendChild(icon);
+      }
     });
 
+    if (leadingIconWrap.childNodes.length) {
+      nameRow.insertBefore(leadingIconWrap, itemName);
+    }
     if (iconWrap.childNodes.length) {
       nameRow.appendChild(iconWrap);
+    }
+    if (leadingIconWrap.childNodes.length || iconWrap.childNodes.length) {
       tags.classList.add('tags--converted');
     }
   });
