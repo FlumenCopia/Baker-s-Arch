@@ -1,2153 +1,3296 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Baker's Arch — Menu</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-<style>
-/* ═══════════════ TOKENS ═══════════════ */
-:root {
-  --terracotta: #B5451B;
-  --terracotta-light: #C45C30;
-  --terracotta-pale: #F5EDE8;
-  --terracotta-bg: #E8421A;
-  --cream: #FBF7F3;
-  --paper: #F7F2EC;
-  --ink: #1C1410;
-  --ink-soft: #3A2E28;
-  --muted: #7A6A60;
-  --border: #E0D4CC;
-  --white: #FFFFFF;
-  --section-bg: #F2EAE3;
-  --tag-veg: #2E7D32;
-  --tag-nonveg: #C62828;
-  --tag-vegan: #1B5E20;
-  --tag-healthy: #E91E63;
-  --tag-sig: #B5451B;
-  --tag-spicy: #FF5722;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Baker's Arch — Menu</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <style>
+    /* ═══════════════ TOKENS ═══════════════ */
+    :root {
+      --terracotta: #B5451B;
+      --terracotta-light: #C45C30;
+      --terracotta-pale: #F5EDE8;
+      --terracotta-bg: #E8421A;
+      --cream: #FBF7F3;
+      --paper: #F7F2EC;
+      --ink: #1C1410;
+      --ink-soft: #3A2E28;
+      --muted: #7A6A60;
+      --border: #E0D4CC;
+      --white: #FFFFFF;
+      --section-bg: #F2EAE3;
+      --tag-veg: #2E7D32;
+      --tag-nonveg: #C62828;
+      --tag-vegan: #1B5E20;
+      --tag-healthy: #E91E63;
+      --tag-sig: #B5451B;
+      --tag-spicy: #FF5722;
+    }
 
-/* ═══════════════ RESET ═══════════════ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--cream);
-  color: var(--ink);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
+    /* ═══════════════ RESET ═══════════════ */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-/* ═══════════════ COVER HEADER ═══════════════ */
-.cover {
-  background: var(--terracotta-bg);
-  position: relative; overflow: hidden;
-  padding: 52px 24px 44px;
-  text-align: center;
-}
-.cover-info-toggle {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.25);
-  color: var(--white);
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: block;
-  z-index: 10;
-}
-.cover-info-toggle:hover, .cover-info-toggle:active {
-  background: rgba(255,255,255,0.25);
-}
-.cover-info-toggle.expanded {
-  background: rgba(255,255,255,0.25);
-}
-.cover-info-dropdown {
-  position: absolute;
-  top: 50px;
-  right: 8px;
-  background: var(--white);
-  border-radius: 12px;
-  padding: 16px;
-  min-width: 280px;
-  max-width: calc(100vw - 32px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-8px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
-  z-index: 20;
-  font-size: 12.5px;
-  color: var(--ink-soft);
-  line-height: 1.8;
-}
-.cover-info-dropdown.open {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-}
-.cover-info-dropdown .dropdown-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 16px;
-  color: var(--terracotta);
-  font-weight: 500;
-  margin-bottom: 8px;
-}
-.cover-info-dropdown .dropdown-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 6px;
-  margin-bottom: 4px;
-}
-.cover-info-dropdown .dropdown-icon {
-  flex-shrink: 0;
-  width: 18px;
-  text-align: center;
-}
-.cover-info-dropdown .dropdown-divider {
-  height: 1px;
-  background: var(--border);
-  margin: 8px 0;
-}
-.cover::before {
-  content: '';
-  position: absolute; top: -40px; right: -40px;
-  width: 280px; height: 280px; border-radius: 50%;
-  background: rgba(255,255,255,0.04);
-  pointer-events: none;
-}
-.cover::after {
-  content: '';
-  position: absolute; bottom: -60px; left: -60px;
-  width: 220px; height: 220px; border-radius: 50%;
-  background: rgba(0,0,0,0.06);
-  pointer-events: none;
-}
-.cover-arch {
-  width: min(460px, 100%);
-  margin: 0 auto;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  line-height: 0;
-}
-.cover-logo {
-  display: block;
-  width: min(460px, 100%);
-  height: auto;
-  padding: 0;
-  margin: 0 auto;
-  mix-blend-mode: screen;
-  vertical-align: top;
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-.cover-logo2 {
-  display: block;
-  width: 40px;
-  height: 40px;
-  margin: 0 auto;
-  mix-blend-mode: screen;
-}
-.cover-tagline {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px; color: rgba(255,255,255,0.7);
-  letter-spacing: 3px; text-transform: uppercase;
-  margin-top: 0;
-}
-.cover-script {
-  display: none;
-}
-.cover-sub {
-  font-size: 12px; color: rgba(255,255,255,0.55);
-  margin-top: 18px; line-height: 1.6;
-}
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
 
-/* ═══════════════ AWARD RIBBON ═══════════════ */
-.award-strip {
-  background: var(--ink);
-  padding: 8px 16px;
-  text-align: center;
-  font-size: 11px; color: rgba(255,255,255,0.65);
-  letter-spacing: 1.5px; text-transform: uppercase;
-}
-.award-strip span { color: #D4A853; font-weight: 500; }
+    /* ═══════════════ COVER HEADER ═══════════════ */
+    .cover {
+      background: var(--terracotta-bg);
+      position: relative;
+      overflow: hidden;
+      padding: 52px 24px 44px;
+      text-align: center;
+    }
 
-/* ═══════════════ LEGEND ═══════════════ */
-.legend {
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  padding: 12px 20px;
-  display: flex; flex-wrap: wrap; gap: 10px 18px;
-  align-items: center;
-  font-size: 11px;
-}
-.legend-title { font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; width: 100%; }
-.legend-item { display: flex; align-items: center; gap: 5px; color: var(--ink-soft); }
-.menu-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
-  font-size: 12px;
-  line-height: 1;
-}
-.menu-icon i {
-  font-size: 12px;
-  line-height: 1;
-}
-.menu-icon svg {
-  width: 12px;
-  height: 12px;
-  display: block;
-  fill: currentColor;
-}
-.menu-icon--veg,
-.menu-icon--nonveg {
-  width: 11px;
-  height: 11px;
-  border-radius: 2px;
-  position: relative;
-}
-.menu-icon--veg { border: 1px solid #2E7D32; }
-.menu-icon--nonveg { border: 1px solid #C62828; }
-.menu-icon--veg::before,
-.menu-icon--nonveg::before {
-  content: "";
-  position: absolute;
-  inset: 2px;
-  border-radius: 50%;
-}
-.menu-icon--veg::before { background: #2E7D32; }
-.menu-icon--nonveg::before { background: #C62828; }
-.menu-icon--vegan { color: #7D8B32; }
-.menu-icon--healthy { color: #AD1457; }
-.menu-icon--signature { color: #B5451B; }
-.menu-icon--spicy,
-.menu-icon--more-spicy { color: #C34A1D; }
-.menu-icon--nuts { color: #5D4037; }
-.menu-icon--shellfish { color: #A35A36; }
-.menu-icon--gluten { color: #3C2F25; }
-.menu-icon--egg { color: #D4AF37; }
-.menu-icon--dairy { color: #8C6A3C; }
-.legend-copy {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 14px;
-  align-items: center;
-}
+    .cover-info-toggle {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: var(--white);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: block;
+      z-index: 10;
+    }
 
-/* ═══════════════ STICKY NAV ═══════════════ */
-.sticky-nav {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(251,247,243,0.96);
-  overflow-x: auto; scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-  border-bottom: 1px solid rgba(28,20,16,0.08);
-  padding: 10px 14px;
-}
-.sticky-nav::-webkit-scrollbar { display: none; }
-.nav-inner {
-  display: flex; align-items: center;
-  padding: 6px;
-  gap: 6px;
-  min-width: max-content;
-  background: rgba(255,255,255,0.96);
-  border: 1px solid rgba(28,20,16,0.08);
-  border-radius: 18px;
-  box-shadow: 0 10px 24px rgba(28,20,16,0.08);
-}
-.nav-btn {
-  padding: 10px 16px;
-  background: none; border: none; cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px; font-weight: 600;
-  color: var(--muted);
-  letter-spacing: 0.2px; text-transform: none;
-  white-space: nowrap;
-  border-radius: 14px;
-  transition: all 0.2s;
-}
-.nav-btn:hover { color: var(--ink); background: rgba(232,66,26,0.08); }
-.nav-btn.active {
-  color: var(--terracotta-bg);
-  background: rgba(232,66,26,0.12);
-  box-shadow: inset 0 0 0 1px rgba(232,66,26,0.1);
-}
+    .cover-info-toggle:hover,
+    .cover-info-toggle:active {
+      background: rgba(255, 255, 255, 0.25);
+    }
 
-.mobile-menu-fab {
-  position: fixed;
-  right: 10px;
-  bottom: 78px;
-  z-index: 220;
-  min-width: 86px;
-  height: 72px;
-  padding: 10px 14px;
-  border: none;
-  border-radius: 999px;
-  background: #FF5722;
-  color: var(--white);
-  box-shadow: 0 14px 30px rgba(0,0,0,0.28);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 3px;
-  cursor: pointer;
-}
-.mobile-menu-fab .fab-icon {
-  font-size: 18px;
-  line-height: 1;
-}
-.mobile-menu-fab .fab-label {
-  font-size: 10px;
+    .cover-info-toggle.expanded {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .cover-info-dropdown {
+      position: absolute;
+      top: 50px;
+      right: 8px;
+      background: var(--white);
+      border-radius: 12px;
+      padding: 16px;
+      min-width: 280px;
+      max-width: calc(100vw - 32px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 20;
+      font-size: 12.5px;
+      color: var(--ink-soft);
+      line-height: 1.8;
+    }
+
+    .cover-info-dropdown.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .cover-info-dropdown .dropdown-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: var(--terracotta);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .cover-info-dropdown .dropdown-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .cover-info-dropdown .dropdown-icon {
+      flex-shrink: 0;
+      width: 18px;
+      text-align: center;
+    }
+
+    .cover-info-dropdown .dropdown-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 8px 0;
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.04);
+      pointer-events: none;
+    }
+
+    .cover::after {
+      content: '';
+      position: absolute;
+      bottom: -60px;
+      left: -60px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
+
+    .cover-arch {
+      width: min(460px, 100%);
+      margin: 0 auto;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      line-height: 0;
+    }
+
+    .cover-logo {
+      display: block;
+      width: min(460px, 100%);
+      height: auto;
+      padding: 0;
+      margin: 0 auto;
+      mix-blend-mode: screen;
+      vertical-align: top;
+    }
+
+    .cover-logo2 {
+      display: block;
+      width: 40px;
+      height: 40px;
+      margin: 0 auto;
+      mix-blend-mode: screen;
+    }
+
+    .cover-tagline {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-top: 0;
+    }
+
+    .cover-script {
+      display: none;
+    }
+
+    .cover-sub {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.55);
+      margin-top: 18px;
+      line-height: 1.6;
+    }
+
+    /* ═══════════════ AWARD RIBBON ═══════════════ */
+    .award-strip {
+      background: var(--ink);
+      padding: 8px 16px;
+      text-align: center;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.65);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .award-strip span {
+      color: #D4A853;
+      font-weight: 500;
+    }
+
+    /* ═══════════════ LEGEND ═══════════════ */
+    .legend {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      align-items: center;
+      font-size: 11px;
+    }
+
+    .legend-title {
+      font-weight: 500;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      width: 100%;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--ink-soft);
+    }
+
+    .menu-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      font-size: 12px;
+      line-height: 1;
+    }
+
+    .menu-icon i {
+      font-size: 12px;
+      line-height: 1;
+    }
+
+    .menu-icon svg {
+      width: 12px;
+      height: 12px;
+      display: block;
+      fill: currentColor;
+    }
+
+    .menu-icon--veg,
+    .menu-icon--nonveg {
+      width: 11px;
+      height: 11px;
+      border-radius: 2px;
+      position: relative;
+    }
+
+    .menu-icon--veg {
+      border: 1px solid #2E7D32;
+    }
+
+    .menu-icon--nonveg {
+      border: 1px solid #C62828;
+    }
+
+    .menu-icon--veg::before,
+    .menu-icon--nonveg::before {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+    }
+
+    .menu-icon--veg::before {
+      background: #2E7D32;
+    }
+
+    .menu-icon--nonveg::before {
+      background: #C62828;
+    }
+
+    .menu-icon--vegan {
+      color: #7D8B32;
+    }
+
+    .menu-icon--healthy {
+      color: #AD1457;
+    }
+
+    .menu-icon--signature {
+      color: #B5451B;
+    }
+
+    .menu-icon--spicy,
+    .menu-icon--more-spicy {
+      color: #C34A1D;
+    }
+
+    .menu-icon--nuts {
+      color: #5D4037;
+    }
+
+    .menu-icon--shellfish {
+      color: #A35A36;
+    }
+
+    .menu-icon--gluten {
+      color: #3C2F25;
+    }
+
+    .menu-icon--egg {
+      color: #D4AF37;
+    }
+
+    .menu-icon--dairy {
+      color: #8C6A3C;
+    }
+
+    .legend-copy {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 14px;
+      align-items: center;
+    }
+
+    /* ═══════════════ STICKY NAV ═══════════════ */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(251, 247, 243, 0.96);
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      border-bottom: 1px solid rgba(28, 20, 16, 0.08);
+      padding: 10px 14px;
+    }
+
+    .sticky-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      padding: 6px;
+      gap: 6px;
+      min-width: max-content;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(28, 20, 16, 0.08);
+      border-radius: 18px;
+      box-shadow: 0 10px 24px rgba(28, 20, 16, 0.08);
+    }
+
+    .nav-btn {
+      padding: 10px 16px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.2px;
+      text-transform: none;
+      white-space: nowrap;
+      border-radius: 14px;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      color: var(--ink);
+      background: rgba(232, 66, 26, 0.08);
+    }
+
+    .nav-btn.active {
+      color: var(--terracotta-bg);
+      background: rgba(232, 66, 26, 0.12);
+      box-shadow: inset 0 0 0 1px rgba(232, 66, 26, 0.1);
+    }
+
+    .mobile-menu-fab {
+      position: fixed;
+      right: 10px;
+      bottom: 78px;
+      z-index: 220;
+      min-width: 86px;
+      height: 72px;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 999px;
+      background: #FF5722;
+      color: var(--white);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      cursor: pointer;
+    }
+
+    .mobile-menu-fab .fab-icon {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .mobile-menu-fab .fab-label {
+      font-size: 10px;
       bottom: 70px !important;
 
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-}
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
 
-.mobile-menu-sheet {
-  position: fixed;
-  right: 18px;
-  width: min(420px, calc(100vw - 32px));
-  bottom:120px;
-  z-index: 215;
-  background: #090b12;
-  color: var(--white);
-  border-radius: 22px;
-  padding: 14px;
-  max-height: min(570px, calc(100vh - 140px));
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-  box-shadow: 0 18px 48px rgba(0,0,0,0.34);
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(26px);
-  transition: opacity 0.22s ease, transform 0.22s ease;
-}
-.mobile-menu-sheet::-webkit-scrollbar {
-  width: 6px;
-}
-.mobile-menu-sheet::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.24);
-  border-radius: 999px;
-}
-.mobile-menu-sheet.open {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateX(0);
-}
-.mobile-menu-item {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 12px;
-  background: transparent;
-  color: rgba(255,255,255,0.92);
-  border: none;
-  border-radius: 14px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 16px;
-  cursor: pointer;
-}
-.mobile-menu-item + .mobile-menu-item {
-  margin-top: 4px;
-}
-.mobile-menu-item.active {
-  background: rgba(255,255,255,0.08);
-}
-.mobile-menu-item-count {
-  color: rgba(255,255,255,0.68);
-  font-size: 15px;
-  transition: transform 0.22s ease;
-}
-.mobile-submenu {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  margin: 0 0 0 14px;
-  padding-left: 12px;
-  border-left: 1px solid rgba(255,255,255,0.12);
-  transition: max-height 0.22s ease, opacity 0.22s ease, margin 0.22s ease;
-}
-.mobile-submenu.open {
-  max-height: 420px;
-  opacity: 1;
-  margin: 4px 0 8px 14px;
-}
-.mobile-menu-item.expanded .mobile-menu-item-count {
-  transform: rotate(180deg);
-}
-.mobile-submenu-item {
-  width: 100%;
-  padding: 10px 12px;
-  background: transparent;
-  color: rgba(255,255,255,0.72);
-  border: none;
-  border-radius: 12px;
-  text-align: left;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  cursor: pointer;
-}
-.mobile-submenu-item + .mobile-submenu-item {
-  margin-top: 2px;
-}
-.mobile-submenu-item:hover,
-.mobile-submenu-item:active {
-  background: rgba(255,255,255,0.06);
-  color: rgba(255,255,255,0.92);
-}
+    .mobile-menu-sheet {
+      position: fixed;
+      right: 18px;
+      width: min(420px, calc(100vw - 32px));
+      bottom: 120px;
+      z-index: 215;
+      background: #090b12;
+      color: var(--white);
+      border-radius: 22px;
+      padding: 14px;
+      max-height: min(570px, calc(100vh - 140px));
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.34);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(26px);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
 
-.mobile-menu-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 210;
-  background: rgba(0,0,0,0.28);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.22s ease;
-}
-.mobile-menu-backdrop.open {
-  opacity: 1;
-  pointer-events: auto;
-}
+    .mobile-menu-sheet::-webkit-scrollbar {
+      width: 6px;
+    }
 
-/* ═══════════════ CONTENT SECTIONS ═══════════════ */
-.menu-section { display: none; }
-.menu-section.active { display: block; }
+    .mobile-menu-sheet::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.24);
+      border-radius: 999px;
+    }
 
-/* ═══════════════ CATEGORY HEADER ═══════════════ */
-.cat-header {
-  padding: 28px 20px 6px;
-  position: relative;
-}
-.cat-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 30px; font-weight: 400; color: var(--ink);
-  line-height: 1.1;
-}
-.cat-rule {
-  width: 40px; height: 2px;
-  background: var(--terracotta);
-  margin-top: 8px; margin-bottom: 0;
-}
-.cat-note {
-  font-size: 11px; color: var(--muted);
-  font-style: italic; margin-top: 6px;
-}
+    .mobile-menu-sheet.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
 
-/* ═══════════════ SUB-CATEGORY ═══════════════ */
-.subcat-header {
-  padding: 20px 20px 4px;
-}
-.subcat-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px; font-weight: 400;
-  color: var(--terracotta);
-  font-style: italic;
-}
-.subcat-note {
-  font-size: 11px; color: var(--muted); margin-top: 3px;
-}
+    .mobile-menu-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 12px;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.92);
+      border: none;
+      border-radius: 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      cursor: pointer;
+    }
 
-/* ═══════════════ MENU ITEM ═══════════════ */
-.item {
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 6px 12px;
-  align-items: start;
-  background: var(--white);
-  transition: background 0.15s;
-}
-.item:last-child { border-bottom: none; }
-.item:active { background: var(--terracotta-pale); }
+    .mobile-menu-item+.mobile-menu-item {
+      margin-top: 4px;
+    }
 
-.item-left {
-  min-width: 0;
-  padding-right: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.item-right { text-align: right; flex-shrink: 0; min-width: 72px; }
+    .mobile-menu-item.active {
+      background: rgba(255, 255, 255, 0.08);
+    }
 
-.item-name-row {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 4px;
-  flex-wrap: nowrap;
-  min-width: 0;
-  max-width: 100%;
-}
-.item-name-leading-icons {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
-}
-.item-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 19px; font-weight: 500;
-  color: var(--ink); line-height: 1.2;
-  letter-spacing: 0.2px;
-  min-width: 0;
-}
-.item-desc {
-  font-size: 12.5px; color: var(--muted);
-  line-height: 1.65; margin-top: 5px;
-  font-weight: 300;
-}
-.item-price {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px; font-weight: 500;
-  color: var(--terracotta);
-  line-height: 1.2;
-  white-space: nowrap;
-}
-.item-price .rupee {
-  font-size: 14px; font-weight: 400;
-  vertical-align: middle;
-}
+    .mobile-menu-item-count {
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 15px;
+      transition: transform 0.22s ease;
+    }
 
-/* ═══════════════ DIET TAGS ═══════════════ */
-.tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 5px; }
-.tags--converted { display: none; }
-.tag {
-  display: inline-flex; align-items: center; gap: 3px;
-  font-size: 9px; font-weight: 500; letter-spacing: 0.8px;
-  text-transform: uppercase; padding: 2px 6px; border-radius: 2px;
-}
-.tag-veg { background: rgba(46,125,50,0.1); color: var(--tag-veg); border: 1px solid rgba(46,125,50,0.25); }
-.tag-nonveg { background: rgba(198,40,40,0.08); color: var(--tag-nonveg); border: 1px solid rgba(198,40,40,0.2); }
-.tag-vegan { background: rgba(27,94,32,0.1); color: var(--tag-vegan); border: 1px solid rgba(27,94,32,0.25); }
-.tag-sig { background: rgba(181,69,27,0.1); color: var(--tag-sig); border: 1px solid rgba(181,69,27,0.25); }
-.tag-spicy { background: rgba(255,87,34,0.1); color: var(--tag-spicy); border: 1px solid rgba(255,87,34,0.2); }
-.tag-health { background: rgba(233,30,99,0.08); color: var(--tag-healthy); border: 1px solid rgba(233,30,99,0.2); }
-.tag-gf { background: rgba(0,150,136,0.08); color: #00695C; border: 1px solid rgba(0,150,136,0.2); }
-.tag-time { background: rgba(100,100,100,0.08); color: #555; border: 1px solid rgba(100,100,100,0.2); }
-.item-icons {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  flex-wrap: nowrap;
-  flex-shrink: 0;
-  margin-top: 0;
-  white-space: nowrap;
-  transform: translateY(-1px);
-}
-.item-time-inline {
-  color: var(--muted);
-  font-size: 11px;
-  letter-spacing: 0.2px;
-  white-space: nowrap;
-}
+    .mobile-submenu {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      margin: 0 0 0 14px;
+      padding-left: 12px;
+      border-left: 1px solid rgba(255, 255, 255, 0.12);
+      transition: max-height 0.22s ease, opacity 0.22s ease, margin 0.22s ease;
+    }
+
+    .mobile-submenu.open {
+      max-height: 420px;
+      opacity: 1;
+      margin: 4px 0 8px 14px;
+    }
+
+    .mobile-menu-item.expanded .mobile-menu-item-count {
+      transform: rotate(180deg);
+    }
+
+    .mobile-submenu-item {
+      width: 100%;
+      padding: 10px 12px;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.72);
+      border: none;
+      border-radius: 12px;
+      text-align: left;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .mobile-submenu-item+.mobile-submenu-item {
+      margin-top: 2px;
+    }
+
+    .mobile-submenu-item:hover,
+    .mobile-submenu-item:active {
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .mobile-menu-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 210;
+      background: rgba(0, 0, 0, 0.28);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
+
+    .mobile-menu-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ═══════════════ CONTENT SECTIONS ═══════════════ */
+    .menu-section {
+      display: none;
+    }
+
+    .menu-section.active {
+      display: block;
+    }
+
+    /* ═══════════════ CATEGORY HEADER ═══════════════ */
+    .cat-header {
+      padding: 28px 20px 6px;
+      position: relative;
+    }
+
+    .cat-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .cat-rule {
+      width: 40px;
+      height: 2px;
+      background: var(--terracotta);
+      margin-top: 8px;
+      margin-bottom: 0;
+    }
+
+    .cat-note {
+      font-size: 11px;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 6px;
+    }
+
+    /* ═══════════════ SUB-CATEGORY ═══════════════ */
+    .subcat-header {
+      padding: 20px 20px 4px;
+    }
+
+    .subcat-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--terracotta);
+      font-style: italic;
+    }
+
+    .subcat-note {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    /* ═══════════════ MENU ITEM ═══════════════ */
+    .item {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 6px 12px;
+      align-items: start;
+      background: var(--white);
+      transition: background 0.15s;
+    }
+
+    .item:last-child {
+      border-bottom: none;
+    }
+
+    .item:active {
+      background: var(--terracotta-pale);
+    }
+
+    .item-left {
+      min-width: 0;
+      padding-right: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .item-right {
+      text-align: right;
+      flex-shrink: 0;
+      min-width: 72px;
+    }
+
+    .item-name-row {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 4px;
+      flex-wrap: nowrap;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .item-name-leading-icons {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .item-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.2;
+      letter-spacing: 0.2px;
+      min-width: 0;
+    }
+
+    .item-desc {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-top: 5px;
+      font-weight: 300;
+    }
+
+    .item-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--terracotta);
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .item-price .rupee {
+      font-size: 14px;
+      font-weight: 400;
+      vertical-align: middle;
+    }
+
+    /* ═══════════════ DIET TAGS ═══════════════ */
+    .tags {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      margin-top: 5px;
+    }
+
+    .tags--converted {
+      display: none;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
+
+    .tag-veg {
+      background: rgba(46, 125, 50, 0.1);
+      color: var(--tag-veg);
+      border: 1px solid rgba(46, 125, 50, 0.25);
+    }
+
+    .tag-nonveg {
+      background: rgba(198, 40, 40, 0.08);
+      color: var(--tag-nonveg);
+      border: 1px solid rgba(198, 40, 40, 0.2);
+    }
+
+    .tag-vegan {
+      background: rgba(27, 94, 32, 0.1);
+      color: var(--tag-vegan);
+      border: 1px solid rgba(27, 94, 32, 0.25);
+    }
+
+    .tag-sig {
+      background: rgba(181, 69, 27, 0.1);
+      color: var(--tag-sig);
+      border: 1px solid rgba(181, 69, 27, 0.25);
+    }
+
+    .tag-spicy {
+      background: rgba(255, 87, 34, 0.1);
+      color: var(--tag-spicy);
+      border: 1px solid rgba(255, 87, 34, 0.2);
+    }
+
+    .tag-health {
+      background: rgba(233, 30, 99, 0.08);
+      color: var(--tag-healthy);
+      border: 1px solid rgba(233, 30, 99, 0.2);
+    }
+
+    .tag-gf {
+      background: rgba(0, 150, 136, 0.08);
+      color: #00695C;
+      border: 1px solid rgba(0, 150, 136, 0.2);
+    }
+
+    .tag-mspicy {
+      background: rgba(255, 87, 34, 0.14);
+      color: #C34A1D;
+      border: 1px solid rgba(255, 87, 34, 0.26);
+    }
+
+    .tag-nuts {
+      background: rgba(93, 64, 55, 0.1);
+      color: #5D4037;
+      border: 1px solid rgba(93, 64, 55, 0.24);
+    }
+
+    .tag-shellfish {
+      background: rgba(163, 90, 54, 0.1);
+      color: #A35A36;
+      border: 1px solid rgba(163, 90, 54, 0.24);
+    }
+
+    .tag-egg {
+      background: rgba(212, 175, 55, 0.12);
+      color: #A67C00;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+    }
+
+    .tag-dairy {
+      background: rgba(140, 106, 60, 0.1);
+      color: #8C6A3C;
+      border: 1px solid rgba(140, 106, 60, 0.24);
+    }
+
+    .tag-time {
+      background: rgba(100, 100, 100, 0.08);
+      color: #555;
+      border: 1px solid rgba(100, 100, 100, 0.2);
+    }
 
 
-/* ═══════════════ CARD / SECTION BG ═══════════════ */
-.items-card {
-  background: var(--white);
-  border-radius: 8px;
-  margin: 12px 16px;
-  border: 1px solid var(--border);
-  overflow: hidden;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
-}
 
-/* ═══════════════ SECTION DIVIDER ═══════════════ */
-.section-gap { height: 8px; background: var(--section-bg); }
 
-/* ═══════════════ GRILL SPECIAL ═══════════════ */
-.grill-banner {
-  background: var(--ink);
-  margin: 0;
-  padding: 16px 20px;
-  border-radius: 0;
-}
-.grill-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 22px; color: var(--white); font-weight: 400;
-}
-.grill-subtitle {
-  font-size: 12px; color: rgba(255,255,255,0.5);
-  font-style: italic; margin-top: 4px;
-}
 
-/* ═══════════════ COFFEE ORIGIN STRIP ═══════════════ */
-.origin-strip {
-  background: var(--terracotta-pale);
-  border: 1px solid rgba(181,69,27,0.2);
-  margin: 0 16px 0;
-  border-radius: 6px 6px 0 0;
-  padding: 12px 16px;
-}
-.origin-strip .origin-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 15px; font-weight: 500; color: var(--terracotta);
-}
-.origin-strip .origin-body {
-  font-size: 11px; color: var(--muted); margin-top: 3px; line-height: 1.6;
-}
 
-/* ═══════════════ ALLERGEN FOOTER ═══════════════ */
-.allergen-footer {
-  background: var(--paper);
-  border-top: 1px solid var(--border);
-  padding: 20px 20px;
-  font-size: 11.5px; color: var(--muted);
-  text-align: center; line-height: 1.8;
-}
-.allergen-footer strong { color: var(--ink-soft); }
-.allergen-footer .legend-copy {
-  justify-content: center;
-  margin-bottom: 2px;
-}
-.allergen-footer .footer-note {
-  margin-top: 6px;
-}
 
-/* ═══════════════ BOTTOM SPACING ═══════════════ */
-.bottom-space { height: 60px; }
 
-/* ═══════════════ PRICE VARIANTS ═══════════════ */
-.price-variants {
-  font-size: 10px; color: var(--muted);
-  margin-top: 2px; font-style: italic;
-}
 
-/* ═══════════════ SCROLL TO TOP ═══════════════ */
-.scroll-top {
-  position: fixed; bottom: 20px; right: 20px; z-index: 200;
-  width: 40px; height: 40px; border-radius: 50%;
-  background: var(--terracotta); color: var(--white);
-  border: none; cursor: pointer;
-  font-size: 18px; display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 3px 12px rgba(181,69,27,0.4);
-  opacity: 0; transition: opacity 0.3s;
-}
-.scroll-top.visible { opacity: 1; }
 
-/* ═══════════════ BACK COVER ═══════════════ */
-.back-cover {
-  background: var(--terracotta-bg);
-  padding: 40px 24px;
-  text-align: center;
-  margin-top: 12px;
-}
-.back-cover p {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 15px; font-style: italic;
-  color: rgba(255,255,255,0.75); line-height: 1.8;
-}
-.back-cover .contact-line {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px; color: rgba(255,255,255,0.55);
-  margin-top: 12px; letter-spacing: 0.5px;
-}
-.back-cover .social {
-  font-size: 13px; color: rgba(255,255,255,0.6);
-  margin-top: 6px; letter-spacing: 1px;
-}
 
-/* ═══════════════ RESPONSIVE ═══════════════ */
-@media (max-width: 400px) {
-  .cover-arch { width: min(250px, 80vw); }
-  .item-name { font-size: 17px; }
-  .item-price { font-size: 18px; }
-  .sticky-nav { padding: 10px 10px 8px; }
-  .nav-btn { padding: 9px 13px; font-size: 12px; }
-}
 
-@media (max-width: 768px) {
-  .sticky-nav {
-    top: 0;
-  }
-  .nav-inner {
-    overflow-x: auto;
-    width: 100%;
-  }
-  .mobile-menu-fab {
-    min-width: 72px;
-    height: 72px;
-    padding: 10px 12px;
-    bottom: 70px !important;
-    right: 10px !important;
-  }
-  .mobile-menu-sheet {
-    right: 10px;
-    top: 82px;
-    width: min(360px, calc(100vw - 20px));
-    max-height: min(400px, calc(100vh - 170px));
-  }
-}
 
-@media (max-width: 560px) {
-  .sticky-nav {
-    padding: 8px 12px;
-  }
-  .nav-inner {
-    display: none;
-  }
-  .item {
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 8px 10px;
-  }
-  .item-left {
-    padding-right: 8px;
-  }
-  .item-name-row {
-    align-items: flex-start;
-    display: flex;
-    flex-wrap: wrap;
-  }
-  .item-name-leading-icons {
-    width: auto;
-  }
-  .item-icons {
-    flex-wrap: wrap;
-    white-space: normal;
-  }
-  .mobile-menu-sheet {
-    right: 12px;
-    left: 12px;
-    top: auto;
-    bottom: 100px;
-    width: auto;
-    max-height: min(320px, calc(100vh - 220px));
-  }
-}
-</style>
+    .item-icons {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      flex-wrap: nowrap;
+      flex-shrink: 0;
+      margin-top: 0;
+      white-space: nowrap;
+      transform: translateY(-1px);
+    }
+
+    .item-time-inline {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+
+
+    /* ═══════════════ CARD / SECTION BG ═══════════════ */
+    .items-card {
+      background: var(--white);
+      border-radius: 8px;
+      margin: 12px 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    /* ═══════════════ SECTION DIVIDER ═══════════════ */
+    .section-gap {
+      height: 8px;
+      background: var(--section-bg);
+    }
+
+    /* ═══════════════ GRILL SPECIAL ═══════════════ */
+    .grill-banner {
+      background: var(--ink);
+      margin: 0;
+      padding: 16px 20px;
+      border-radius: 0;
+    }
+
+    .grill-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      color: var(--white);
+      font-weight: 400;
+    }
+
+    .grill-subtitle {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      font-style: italic;
+      margin-top: 4px;
+    }
+
+    /* ═══════════════ COFFEE ORIGIN STRIP ═══════════════ */
+    .origin-strip {
+      background: var(--terracotta-pale);
+      border: 1px solid rgba(181, 69, 27, 0.2);
+      margin: 0 16px 0;
+      border-radius: 6px 6px 0 0;
+      padding: 12px 16px;
+    }
+
+    .origin-strip .origin-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--terracotta);
+    }
+
+    .origin-strip .origin-body {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 3px;
+      line-height: 1.6;
+    }
+
+    /* ═══════════════ ALLERGEN FOOTER ═══════════════ */
+    .allergen-footer {
+      background: var(--paper);
+      border-top: 1px solid var(--border);
+      padding: 20px 20px;
+      font-size: 11.5px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.8;
+    }
+
+    .allergen-footer strong {
+      color: var(--ink-soft);
+    }
+
+    .allergen-footer .legend-copy {
+      justify-content: center;
+      margin-bottom: 2px;
+    }
+
+    .allergen-footer .footer-note {
+      margin-top: 6px;
+    }
+
+    /* ═══════════════ BOTTOM SPACING ═══════════════ */
+    .bottom-space {
+      height: 60px;
+    }
+
+    /* ═══════════════ PRICE VARIANTS ═══════════════ */
+    .price-variants {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 2px;
+      font-style: italic;
+    }
+
+    /* ═══════════════ SCROLL TO TOP ═══════════════ */
+    .scroll-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 200;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--terracotta);
+      color: var(--white);
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 12px rgba(181, 69, 27, 0.4);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+    }
+
+    /* ═══════════════ BACK COVER ═══════════════ */
+    .back-cover {
+      background: var(--terracotta-bg);
+      padding: 40px 24px;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .back-cover p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.8;
+    }
+
+    .back-cover .contact-line {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.55);
+      margin-top: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .back-cover .social {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-top: 6px;
+      letter-spacing: 1px;
+    }
+
+    /* ═══════════════ RESPONSIVE ═══════════════ */
+    @media (max-width: 400px) {
+      .cover-arch {
+        width: min(250px, 80vw);
+      }
+
+      .item-name {
+        font-size: 17px;
+      }
+
+      .item-price {
+        font-size: 18px;
+      }
+
+      .sticky-nav {
+        padding: 10px 10px 8px;
+      }
+
+      .nav-btn {
+        padding: 9px 13px;
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sticky-nav {
+        top: 0;
+      }
+
+      .nav-inner {
+        overflow-x: auto;
+        width: 100%;
+      }
+
+      .mobile-menu-fab {
+        min-width: 72px;
+        height: 72px;
+        padding: 10px 12px;
+        bottom: 70px !important;
+        right: 10px !important;
+      }
+
+      .mobile-menu-sheet {
+        right: 10px;
+        top: 82px;
+        width: min(360px, calc(100vw - 20px));
+        max-height: min(400px, calc(100vh - 170px));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .sticky-nav {
+        padding: 8px 12px;
+      }
+
+      .nav-inner {
+        display: none;
+      }
+
+      .item {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 8px 10px;
+      }
+
+      .item-left {
+        padding-right: 8px;
+      }
+
+      .item-name-row {
+        align-items: flex-start;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .item-name-leading-icons {
+        width: auto;
+      }
+
+      .item-icons {
+        flex-wrap: wrap;
+        white-space: normal;
+      }
+
+      .mobile-menu-sheet {
+        right: 12px;
+        left: 12px;
+        top: auto;
+        bottom: 100px;
+        width: auto;
+        max-height: min(320px, calc(100vh - 220px));
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- COVER -->
-<div class="cover">
-  <button class="cover-info-toggle" id="coverInfoToggle" type="button" onclick="toggleCoverInfo()" aria-label="Toggle info" aria-controls="coverInfoDropdown" aria-expanded="false">
-<i class="bi bi-list"></i>
+  <!-- COVER -->
+  <div class="cover">
+    <button class="cover-info-toggle" id="coverInfoToggle" type="button" onclick="toggleCoverInfo()"
+      aria-label="Toggle info" aria-controls="coverInfoDropdown" aria-expanded="false">
+      <i class="bi bi-list"></i>
 
-  </button>
-  <div class="cover-info-dropdown" id="coverInfoDropdown">
-    <div class="dropdown-title">Contact Us</div>
-    <div class="dropdown-row"><span class="dropdown-icon">📍</span><span>18/1400-1, Vikraman Hills, Kuravankonam<br>Kowdiar P.O., Thiruvananthapuram – 695003</span></div>
-    <div class="dropdown-divider"></div>
-    <div class="dropdown-row"><span class="dropdown-icon">🕐</span><span>Open Daily: 11:00 AM to 11:00 PM</span></div>
-    <div class="dropdown-row"><span class="dropdown-icon">📞</span><span>+91 0471 4617709 / 10 / 11 / 12</span></div>
-    <div class="dropdown-row"><span class="dropdown-icon">📱</span><span>Reservations: +91 8714642900</span></div>
-    <div class="dropdown-divider"></div>
-    <div class="dropdown-row"><span class="dropdown-icon">✉️</span><span>reservations@bakersarch.in</span></div>
-    <div class="dropdown-row"><span class="dropdown-icon">🌐</span><span>bakersarch.in</span></div>
-    <div class="dropdown-row"><span class="dropdown-icon">📸</span><span>@bakersarchcafe</span></div>
-  </div>
-  <div class="cover-arch">
-    <img class="cover-logo" src="Logo.png" alt="Baker's Arch logo">
-  </div>
-  <div class="cover-script">a garden café</div>
-  <div class="cover-tagline">Trivandrum, Kerala</div>
-  <div class="cover-sub">Created with passion and served with love.<br>Food unites people.</div>
-</div>
-
-<!-- AWARD STRIP -->
-<div class="award-strip">
-  <span>✦ REVE Luxury Awards 2025 Winner ✦</span><br> Muthoot Pappachan Group
-</div>
-
-<!-- LEGEND -->
-<div class="legend">
-  <div class="legend-title">Key</div>
-  <div class="legend-copy">
-    <div class="legend-item"><span class="menu-icon menu-icon--vegan" aria-hidden="true"><i class="bi bi-check-square"></i></span>Vegan</div>
-    <div class="legend-item"><span class="menu-icon menu-icon--veg" aria-hidden="true"></span>Veg</div>
-    <div class="legend-item"><span class="menu-icon menu-icon--nonveg" aria-hidden="true"></span>Non-Veg</div>
-    <div class="legend-item"><span class="menu-icon menu-icon--healthy" aria-hidden="true"><i class="fa-solid fa-heart"></i></span>Healthy Option</div>
-    <div class="legend-item"><span class="menu-icon menu-icon--signature" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 10.5A3.5 3.5 0 0 1 10.5 7a4.4 4.4 0 0 1 1.5.27A4.5 4.5 0 0 1 20 10a3 3 0 0 1-1 5.83V18a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-2.17A3 3 0 0 1 7 10.5Zm2 5.5V18h8v-2Zm0-2h8a1 1 0 0 0 0-2h-.46l-.74-.02.14-.72A2.5 2.5 0 0 0 13.5 8a2.7 2.7 0 0 0-1.43.41l-.48.3-.48-.3A2.4 2.4 0 0 0 10.5 8 2.5 2.5 0 0 0 8 10.5l.06.53.08.75L7.39 12a1 1 0 0 0 .61 2Z"/></svg></span>Signature</div>
-    <div class="legend-item"><span class="menu-icon menu-icon--spicy" aria-hidden="true">&#127798;</span>Spicy</div>
-    <div class="legend-item"><span class="menu-icon menu-icon--more-spicy" aria-hidden="true">&#127798;&#127798;</span>More Spicy</div>
-    <div class="legend-item"><span class="menu-icon menu-icon--nuts" aria-hidden="true">&#129372;</span>Nuts</div>
-    <div class="legend-item"><span class="menu-icon menu-icon--shellfish" aria-hidden="true">&#129424;</span>Shellfish</div>
-    <div class="legend-item"><span class="menu-icon menu-icon--gluten" aria-hidden="true">&#127806;</span>Gluten</div>
-    <div class="legend-item"><span class="menu-icon menu-icon--egg" aria-hidden="true"><i class="fa-solid fa-egg"></i></span>Egg</div>
-    <div class="legend-item"><span class="menu-icon menu-icon--dairy" aria-hidden="true">&#129371;</span>Dairy</div>
-  </div>
-</div>
-
-<!-- STICKY NAV -->
-
-<nav class="sticky-nav">
-  <div class="nav-inner">
-    <button class="nav-btn active" onclick="showSection('food', this)">Food</button>
-    <button class="nav-btn" onclick="showSection('coffee', this)">Coffee</button>
-    <button class="nav-btn" onclick="showSection('drinks', this)">Drinks</button>
-    <!-- <button class="nav-btn" onclick="showSection('info', this)">Info</button> -->
-  </div>
-</nav>
-
-
-<!-- ═══════════════════════════════════════════════ -->
-<!--                  FOOD SECTION                   -->
-<!-- ═══════════════════════════════════════════════ -->
-
-<div class="mobile-menu-backdrop" id="mobileMenuBackdrop" onclick="closeMobileMenu()"></div>
-<div class="mobile-menu-sheet" id="mobileMenuSheet">
-  <button class="mobile-menu-item active" id="foodMenuToggle" data-section="food" onclick="toggleFoodSubmenu(event)">
-    <span>Food</span>
-    <span class="mobile-menu-item-count">▾</span>
-  </button>
-
-  <div class="mobile-submenu" id="foodSubmenu">
-    <button class="mobile-submenu-item" onclick="showFoodSubsection('food-culinary-genesis')">Culinary Genesis</button>
-    <button class="mobile-submenu-item" onclick="showFoodSubsection('food-soups-salads')">Soups &amp; Salads</button>
-    <button class="mobile-submenu-item" onclick="showFoodSubsection('food-sensational-platters')">Our Sensational Platters</button>
-    <button class="mobile-submenu-item" onclick="showFoodSubsection('food-fusion-grill')">Our Fusion Grill</button>
-    <button class="mobile-submenu-item" onclick="showFoodSubsection('food-global-big-bites')">Global Big Bites</button>
-    <button class="mobile-submenu-item" onclick="showFoodSubsection('food-glazed-bites')">Glazed Bites</button>
-    <button class="mobile-submenu-item" onclick="showFoodSubsection('food-stuffed-bites')">Stuffed Bites</button>
-    <button class="mobile-submenu-item" onclick="showFoodSubsection('food-desserts')">Desserts</button>
+    </button>
+    <div class="cover-info-dropdown" id="coverInfoDropdown">
+      <div class="dropdown-title">Contact Us</div>
+      <div class="dropdown-row"><span class="dropdown-icon">📍</span><span>18/1400-1, Vikraman Hills,
+          Kuravankonam<br>Kowdiar P.O., Thiruvananthapuram – 695003</span></div>
+      <div class="dropdown-divider"></div>
+      <div class="dropdown-row"><span class="dropdown-icon">🕐</span><span>Open Daily: 11:00 AM to 11:00 PM</span></div>
+      <div class="dropdown-row"><span class="dropdown-icon">📞</span><span>+91 0471 4617709 / 10 / 11 / 12</span></div>
+      <div class="dropdown-row"><span class="dropdown-icon">📱</span><span>Reservations: +91 8714642900</span></div>
+      <div class="dropdown-divider"></div>
+      <div class="dropdown-row"><span class="dropdown-icon">✉️</span><span>reservations@bakersarch.in</span></div>
+      <div class="dropdown-row"><span class="dropdown-icon">🌐</span><span>bakersarch.in</span></div>
+      <div class="dropdown-row"><span class="dropdown-icon">📸</span><span>@bakersarchcafe</span></div>
+    </div>
+    <div class="cover-arch">
+      <img class="cover-logo" src="Logo.png" alt="Baker's Arch logo">
+    </div>
+    <div class="cover-script">a garden café</div>
+    <div class="cover-tagline">Trivandrum, Kerala</div>
+    <div class="cover-sub">Created with passion and served with love.<br>Food unites people.</div>
   </div>
 
-  <button class="mobile-menu-item" id="coffeeMenuToggle" data-section="coffee" onclick="toggleCoffeeSubmenu(event)">
-    <span>Coffee</span>
-    <span class="mobile-menu-item-count">▾</span>
-  </button>
-  <div class="mobile-submenu" id="coffeeSubmenu">
-    <button class="mobile-submenu-item" onclick="showCoffeeSubsection('coffee-hot-coffee')">Hot Coffee</button>
-    <button class="mobile-submenu-item" onclick="showCoffeeSubsection('coffee-cold-coffee')">Cold Coffee</button>
-    <button class="mobile-submenu-item" onclick="showCoffeeSubsection('coffee-brew')">Brew</button>
-    <button class="mobile-submenu-item" onclick="showCoffeeSubsection('coffee-matcha')">Matcha</button>
-    <button class="mobile-submenu-item" onclick="showCoffeeSubsection('coffee-tea')">Tea</button>
-    <button class="mobile-submenu-item" onclick="showCoffeeSubsection('coffee-iced-tea')">Iced Tea</button>
-  </div>
-  <button class="mobile-menu-item" id="drinksMenuToggle" data-section="drinks" onclick="toggleDrinksSubmenu(event)">
-    <span>Drinks</span>
-    <span class="mobile-menu-item-count">▾</span>
-  </button>
-
-
-
-
-  <div class="mobile-submenu" id="drinksSubmenu">
-    <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-classic-shakes')">Classic Shakes</button>
-    <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-vegan-shakes')">Vegan Shakes</button>
-    <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-smoothies')">Smoothies</button>
-    <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-frappe')">Frappe</button>
-    <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-mocktails')">Mocktails</button>
-    <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-probiotics')">House Fermented Probiotic Drinks</button>
-    <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-detox')">Detox</button>
-    <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-fresh-juice')">Fresh Juice</button>
-    <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-house-water')">House Water</button>
+  <!-- AWARD STRIP -->
+  <div class="award-strip">
+    <span>✦ REVE Luxury Awards 2025 Winner ✦</span><br> Muthoot Pappachan Group
   </div>
 
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-title">Key</div>
+    <div class="legend-copy">
+      <div class="legend-item"><span class="menu-icon menu-icon--vegan" aria-hidden="true"><i
+            class="bi bi-check-square"></i></span>Vegan</div>
+      <div class="legend-item"><span class="menu-icon menu-icon--veg" aria-hidden="true"></span>Veg</div>
+      <div class="legend-item"><span class="menu-icon menu-icon--nonveg" aria-hidden="true"></span>Non-Veg</div>
+      <div class="legend-item"><span class="menu-icon menu-icon--healthy" aria-hidden="true"><i
+            class="fa-solid fa-heart"></i></span>Healthy Option</div>
+      <div class="legend-item"><span class="menu-icon menu-icon--signature" aria-hidden="true"><svg viewBox="0 0 24 24"
+            focusable="false">
+            <path
+              d="M7 10.5A3.5 3.5 0 0 1 10.5 7a4.4 4.4 0 0 1 1.5.27A4.5 4.5 0 0 1 20 10a3 3 0 0 1-1 5.83V18a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-2.17A3 3 0 0 1 7 10.5Zm2 5.5V18h8v-2Zm0-2h8a1 1 0 0 0 0-2h-.46l-.74-.02.14-.72A2.5 2.5 0 0 0 13.5 8a2.7 2.7 0 0 0-1.43.41l-.48.3-.48-.3A2.4 2.4 0 0 0 10.5 8 2.5 2.5 0 0 0 8 10.5l.06.53.08.75L7.39 12a1 1 0 0 0 .61 2Z" />
+          </svg></span>Signature</div>
+      <div class="legend-item"><span class="menu-icon menu-icon--spicy" aria-hidden="true">&#127798;</span>Spicy</div>
+      <div class="legend-item"><span class="menu-icon menu-icon--more-spicy"
+          aria-hidden="true">&#127798;&#127798;</span>More Spicy</div>
+      <div class="legend-item"><span class="menu-icon menu-icon--nuts" aria-hidden="true">&#129372;</span>Nuts</div>
+      <div class="legend-item"><span class="menu-icon menu-icon--shellfish" aria-hidden="true">&#129424;</span>Shellfish
+      </div>
+      <div class="legend-item"><span class="menu-icon menu-icon--gluten" aria-hidden="true">&#127806;</span>Gluten</div>
+      <div class="legend-item"><span class="menu-icon menu-icon--egg" aria-hidden="true"><i
+            class="fa-solid fa-egg"></i></span>Egg</div>
+      <div class="legend-item"><span class="menu-icon menu-icon--dairy" aria-hidden="true">&#129371;</span>Dairy</div>
+    </div>
+  </div>
+
+  <!-- STICKY NAV -->
+
+  <nav class="sticky-nav">
+    <div class="nav-inner">
+      <button class="nav-btn active" onclick="showSection('food', this)">Food</button>
+      <button class="nav-btn" onclick="showSection('coffee', this)">Coffee</button>
+      <button class="nav-btn" onclick="showSection('drinks', this)">Drinks</button>
+      <!-- <button class="nav-btn" onclick="showSection('info', this)">Info</button> -->
+    </div>
+  </nav>
 
 
-  <!-- <button class="mobile-menu-item" data-section="info" onclick="showSection('info'); closeMobileMenu();">
+  <!-- ═══════════════════════════════════════════════ -->
+  <!--                  FOOD SECTION                   -->
+  <!-- ═══════════════════════════════════════════════ -->
+
+  <div class="mobile-menu-backdrop" id="mobileMenuBackdrop" onclick="closeMobileMenu()"></div>
+  <div class="mobile-menu-sheet" id="mobileMenuSheet">
+    <button class="mobile-menu-item active" id="foodMenuToggle" data-section="food" onclick="toggleFoodSubmenu(event)">
+      <span>Food</span>
+      <span class="mobile-menu-item-count">▾</span>
+    </button>
+
+    <div class="mobile-submenu" id="foodSubmenu">
+      <button class="mobile-submenu-item" onclick="showFoodSubsection('food-culinary-genesis')">Culinary
+        Genesis</button>
+      <button class="mobile-submenu-item" onclick="showFoodSubsection('food-soups-salads')">Soups &amp; Salads</button>
+      <button class="mobile-submenu-item" onclick="showFoodSubsection('food-sensational-platters')">Our Sensational
+        Platters</button>
+      <button class="mobile-submenu-item" onclick="showFoodSubsection('food-fusion-grill')">Our Fusion Grill</button>
+      <button class="mobile-submenu-item" onclick="showFoodSubsection('food-global-big-bites')">Global Big
+        Bites</button>
+      <button class="mobile-submenu-item" onclick="showFoodSubsection('food-glazed-bites')">Glazed Bites</button>
+      <button class="mobile-submenu-item" onclick="showFoodSubsection('food-stuffed-bites')">Stuffed Bites</button>
+      <button class="mobile-submenu-item" onclick="showFoodSubsection('food-desserts')">Desserts</button>
+    </div>
+
+    <button class="mobile-menu-item" id="coffeeMenuToggle" data-section="coffee" onclick="toggleCoffeeSubmenu(event)">
+      <span>Coffee</span>
+      <span class="mobile-menu-item-count">▾</span>
+    </button>
+    <div class="mobile-submenu" id="coffeeSubmenu">
+      <button class="mobile-submenu-item" onclick="showCoffeeSubsection('coffee-hot-coffee')">Hot Coffee</button>
+      <button class="mobile-submenu-item" onclick="showCoffeeSubsection('coffee-cold-coffee')">Cold Coffee</button>
+      <button class="mobile-submenu-item" onclick="showCoffeeSubsection('coffee-brew')">Brew</button>
+      <button class="mobile-submenu-item" onclick="showCoffeeSubsection('coffee-matcha')">Matcha</button>
+      <button class="mobile-submenu-item" onclick="showCoffeeSubsection('coffee-tea')">Tea</button>
+      <button class="mobile-submenu-item" onclick="showCoffeeSubsection('coffee-iced-tea')">Iced Tea</button>
+    </div>
+    <button class="mobile-menu-item" id="drinksMenuToggle" data-section="drinks" onclick="toggleDrinksSubmenu(event)">
+      <span>Drinks</span>
+      <span class="mobile-menu-item-count">▾</span>
+    </button>
+
+
+
+
+    <div class="mobile-submenu" id="drinksSubmenu">
+      <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-classic-shakes')">Classic
+        Shakes</button>
+      <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-vegan-shakes')">Vegan Shakes</button>
+      <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-smoothies')">Smoothies</button>
+      <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-frappe')">Frappe</button>
+      <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-mocktails')">Mocktails</button>
+      <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-probiotics')">House Fermented Probiotic
+        Drinks</button>
+      <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-detox')">Detox</button>
+      <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-fresh-juice')">Fresh Juice</button>
+      <button class="mobile-submenu-item" onclick="showDrinksSubsection('drinks-house-water')">House Water</button>
+    </div>
+
+
+
+    <!-- <button class="mobile-menu-item" data-section="info" onclick="showSection('info'); closeMobileMenu();">
     <span>Info</span>
     <span class="mobile-menu-item-count"></span>
   </button> -->
-</div>
-
-
-<button class="mobile-menu-fab" id="mobileMenuFab" type="button" onclick="toggleMobileMenu()" aria-label="Open menu" aria-controls="mobileMenuSheet" aria-expanded="false">
-  <span class="fab-icon">
-    <img class="cover-logo2" src="Logo2.png" alt="Baker's Arch logo">
-  </span>
-  <span class="fab-label">Menu</span>
-</button>
-
-<section class="menu-section active" id="section-food">
-
-  <!-- CULINARY GENESIS -->
-  <div class="cat-header" id="food-culinary-genesis">
-    <div class="cat-name">Culinary Genesis</div>
-    <div class="cat-rule"></div>
-    <div class="cat-note">Small plates & starters</div>
   </div>
-  <div class="items-card">
 
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name-row"><span class="item-name">Steaked Eggs Benedict</span></div>
-        <div class="tags">
-          <span class="tag tag-nonveg">Non-Veg</span>
-          <span class="tag tag-sig">Signature</span>
-          <span class="tag tag-time">11am–3pm</span>
+
+  <button class="mobile-menu-fab" id="mobileMenuFab" type="button" onclick="toggleMobileMenu()" aria-label="Open menu"
+    aria-controls="mobileMenuSheet" aria-expanded="false">
+    <span class="fab-icon">
+      <img class="cover-logo2" src="Logo2.png" alt="Baker's Arch logo">
+    </span>
+    <span class="fab-label">Menu</span>
+  </button>
+
+  <section class="menu-section active" id="section-food">
+
+    <!-- CULINARY GENESIS -->
+    <div class="cat-header" id="food-culinary-genesis">
+      <div class="cat-name">Culinary Genesis</div>
+      <div class="cat-rule"></div>
+      <div class="cat-note">Small plates & starters</div>
+    </div>
+    <div class="items-card">
+
+      <div class="item">
+        <div class="item-left">
+
+          <div class="item-name-row"><span class="item-name">Steaked Eggs Benedict</span></div>
+          <div class="tags">
+            <span class="tag tag-nonveg">Non-Veg</span>
+            <span class="tag tag-sig">Signature</span>
+            <!-- right side icons -->
+            <span class="tag tag-egg"></span>
+            <span class="tag tag-dairy"></span>
+            <span class="tag tag-gf"></span>
+
+            <!-- <span class="tag tag-time">11am–3pm</span> -->
+
+
+
+          </div>
+          <div class="item-desc">3 Oz mignon beef with poached eggs drenched in creamy hollandaise, served with potato
+            wedges and bread.</div>
         </div>
-        <div class="item-desc">3 Oz mignon beef with poached eggs drenched in creamy hollandaise, served with potato wedges and bread.</div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>690</div>
+        </div>
       </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>690</div></div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name-row"><span class="item-name">Avocado Crostini</span></div>
+          <div class="tags"><span class="tag tag-veg">Veg</span>
+            <span class="tag tag-dairy"></span>
+            <span class="tag tag-gf"></span>
+          </div>
+          <div class="item-desc">Toasted crostini with a spoon scooped melt away cream cheese, tomato caper relish &
+            avocado.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>440</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name-row"><span class="item-name">Korealafel</span></div>
+          <div class="tags"><span class="tag tag-veg">Veg</span>
+            <span class="tag tag-gf"></span>
+
+            <span class="tag tag-spicy">Spicy</span><span class="tag tag-sig">Signature</span>
+          </div>
+          <div class="item-desc">Crispy crusty falafel inspired by sweet, spicy & umami flavors with home-made cabbage
+            kimchi in fluffy bao. Loaded with cheese, served with pepper relish.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>465</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name-row"><span class="item-name">Pumpkin Mushroom Tapas</span></div>
+          <div class="tags">
+            <span class="tag tag-veg"></span>
+            <span class="tag tag-nuts"></span>
+
+            <span class="tag tag-gf"></span>
+          <span class="tag tag-dairy"></span>
+
+          </div>
+          <div class="item-desc">Loaded with cheese, served with pepper relish.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>640</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name-row"><span class="item-name">Mini Mezze Platter</span></div>
+          <div class="tags"><span class="tag tag-veg">Veg</span>
+            
+            <span class="tag tag-health">Healthy</span>
+            <span class="tag tag-veg"></span>
+            <span class="tag tag-vegan"></span>
+            <span class="tag tag-nuts"></span>
+
+            <span class="tag tag-gf"></span>
+          
+          </div>
+          <div class="item-desc">Hummus / baba ghanoush / muhammara / olives / pickles / pita / focaccia / matnakash.
+          </div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>640</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name-row"><span class="item-name">Messy Nachos</span></div>
+          <div class="tags"><span class="tag tag-veg">Veg</span>
+            <span class="tag tag-nonveg">Non-Veg</span>
+          
+          
+                      <span class="tag tag-sig"></span>
+            <span class="tag tag-health"></span>
+
+            <span class="tag tag-gf"></span>
+
+            <span class="tag tag-dairy"></span>
+          </div>
+          <div class="item-desc">Crispy masa corn chips topped with refried beans, pico de gallo, sour cream & cheese
+            sauce, paired with hot Mexican salsa dip & guacamole.</div>
+          <div class="price-variants">Veg ₹560 · Chicken ₹630</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>560+</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name-row"><span class="item-name">Sri Lankan Beef Tacos</span></div>
+          <div class="tags">
+            <span class="tag tag-nonveg">Non-Veg</span>
+            <span class="tag tag-spicy">Spicy</span>
+
+
+                                  <span class="tag tag-sig"></span>
+
+            <span class="tag tag-gf"></span>
+
+            <span class="tag tag-dairy"></span>
+          
+          </div>
+          <div class="item-desc">Mexican soul food with a twist — Ceylon style beef fry in soft shell tacos with chilli
+            coriander aioli, onion tomato relish & cheese sauce.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>640</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name-row"><span class="item-name">Glutted Bao</span></div>
+          <div class="tags"><span class="tag tag-nonveg">Non-Veg</span>
+                      <span class="tag tag-gf"></span>
+
+          </div>
+          <div class="item-desc">Slow cooked pulled pork / chicken with kimchi and spicy Asian chimichurri in fluffy
+            bao.</div>
+          <div class="price-variants">Pork ₹550 · Chicken ₹530</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>530+</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name-row"><span class="item-name">Calamari Fritters</span></div>
+          <div class="tags"><span class="tag tag-nonveg">Non-Veg</span>
+                      <span class="tag tag-gf"></span>
+            <span class="tag tag-egg"></span>
+                        <span class="tag tag-shellfish"></span>
+
+
+          
+          
+          </div>
+          <div class="item-desc">Pre-marinated squid rings in light home-made batter, deep fried, served with cilantro
+            tartar.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>520</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name-row"><span class="item-name">Prawns Kataifi</span></div>
+          <div class="tags"><span class="tag tag-nonveg">Non-Veg</span>
+            <span class="tag tag-sig">Signature</span>
+          
+          
+                           <span class="tag tag-gf"></span>
+            <span class="tag tag-egg"></span>
+                        <span class="tag tag-shellfish"></span>
+          </div>
+          <div class="item-desc">Crisp golden Kunafa wrapped prawns — a perfect contrast to hot garlic sauce with house
+            salad.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>630</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name-row"><span class="item-name">Fiery Chicken Lollipop</span></div>
+          <div class="tags"><span class="tag tag-nonveg">Non-Veg</span>
+            <span class="tag tag-spicy">Spicy</span>
+      
+                           <span class="tag tag-gf"></span>
+            <span class="tag tag-egg"></span>
+          </div>
+          <div class="item-desc">Chilli spiked juicy & tender chicken with Thai rainbow salad.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>640</div>
+        </div>
+      </div>
+    </div>
+    <div class="section-gap"></div>
+
+    <!-- SOUPS & SALADS -->
+    <div class="cat-header" id="food-soups-salads">
+      <div class="cat-name">Soups & Salads</div>
+      <div class="cat-rule"></div>
     </div>
 
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name-row"><span class="item-name">Avocado Crostini</span></div>
-        <div class="tags"><span class="tag tag-veg">Veg</span></div>
-        <div class="item-desc">Toasted crostini with a spoon scooped melt away cream cheese, tomato caper relish & avocado.</div>
+    <div class="subcat-header">
+      <div class="subcat-name">Soups</div>
+    </div>
+    <div class="items-card">
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Chef's Unusual Twist</div>
+          <div class="tags"><span class="tag tag-nonveg">Non-Veg</span>
+            <span class="tag tag-spicy">Spicy</span><span
+              class="tag tag-sig">Signature</span>
+            
+                             <span class="tag tag-gf"></span>
+            
+            </div>
+          <div class="item-desc">Spicy-sweet & sour, mild broth with poached chicken. Features extraordinary textures &
+            flavors flawlessly melting together.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>330</div>
+        </div>
       </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>440</div></div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Velutata Di Zucca Con Funghi</div>
+          <div class="tags"><span class="tag tag-veg">Veg</span>
+          
+                           <span class="tag tag-gf"></span>
+                        <span class="tag tag-dairy"></span>
+          </div>
+          <div class="item-desc">Velouté of pumpkin & potato with mushrooms & garlic crostini.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>310</div>
+        </div>
+      </div>
     </div>
 
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name-row"><span class="item-name">Korealafel</span></div>
-        <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-spicy">Spicy</span><span class="tag tag-sig">Signature</span></div>
-        <div class="item-desc">Crispy crusty falafel inspired by sweet, spicy & umami flavors with home-made cabbage kimchi in fluffy bao. Loaded with cheese, served with pepper relish.</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="subcat-header">
+      <div class="subcat-name">Salads</div>
+    </div>
+    <div class="items-card">
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Kale & Quinoa</div>
+          <div class="tags"><span class="tag tag-vegan">Vegan</span>
+          
+          
+                        <span class="tag tag-nuts"></span>
+          
+          
+          </div>
+          <div class="item-desc">Cherry tomatoes, bell peppers, avocado, red onions, assorted nuts & fluffy quinoa
+            tossed in lemon vinaigrette.</div>
+          <div class="price-variants">Regular ₹410 · With Tofu ₹440</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>410+</div>
+        </div>
       </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>465</div></div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Southwest Steak Salad</div>
+          <div class="tags"><span class="tag tag-nonveg">Non-Veg</span>
+            <span class="tag tag-sig">Signature</span>
+          
+                        <span class="tag tag-dairy"></span>
+          
+          </div>
+          <div class="item-desc">Chilli lime seasoned tenderloin beef steak on fresh greens, sweet corn, red beans,
+            tomatoes, peppers, green onions & ripe avocado with herbed ranch dressing.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>420</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Tropical Salad</div>
+          <div class="tags"><span class="tag tag-veg">Veg</span>
+          </div>
+          <div class="item-desc">Chilled salad with hummus, butterhead lettuce, cucumber, pickled radish, pumpkin seeds
+            & coconut with seasonal fruits in a citrus blueberry dressing.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>420</div>
+        </div>
+      </div>
     </div>
 
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name-row"><span class="item-name">Pumpkin Mushroom Tapas</span></div>
-        <div class="tags"><span class="tag tag-veg">Veg</span></div>
-        <div class="item-desc">Loaded with cheese, served with pepper relish.</div>
+    <div class="section-gap"></div>
+
+    <!-- SENSATIONAL PLATTERS -->
+    <div class="cat-header" id="food-sensational-platters">
+      <div class="cat-name">Our Sensational Platters</div>
+      <div class="cat-rule"></div>
+    </div>
+    <div class="items-card">
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Mezze Platter</div>
+          <div class="tags"><span class="tag tag-nonveg"></span>
+            
+            
+                 <span class="tag tag-gf"></span>
+            <span class="tag tag-nuts"></span>
+                        <span class="tag tag-dairy"></span>          
+          
+          
+          </div>
+          <div class="item-desc">Za'atar spice-rubbed grilled chicken / hummus / baba ghanoush / muhammara / olives /
+            pickles / pita / focaccia / matnakash.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>970</div>
+        </div>
       </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>640</div></div>
     </div>
 
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name-row"><span class="item-name">Mini Mezze Platter</span></div>
-        <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-health">Healthy</span></div>
-        <div class="item-desc">Hummus / baba ghanoush / muhammara / olives / pickles / pita / focaccia / matnakash.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>640</div></div>
+    <div class="section-gap"></div>
+
+    <!-- FUSION GRILL -->
+    <div class="grill-banner" id="food-fusion-grill">
+      <div class="grill-title">Our Fusion Grill</div>
+      <div class="grill-subtitle">"A blend of smoking-braising & grilling — where the heat can spice & texture up the
+        meat"</div>
     </div>
 
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name-row"><span class="item-name">Messy Nachos</span></div>
-        <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-nonveg">Non-Veg</span></div>
-        <div class="item-desc">Crispy masa corn chips topped with refried beans, pico de gallo, sour cream & cheese sauce, paired with hot Mexican salsa dip & guacamole.</div>
-        <div class="price-variants">Veg ₹560 · Chicken ₹630</div>
+
+
+    <div class="items-card" style="border-radius: 0 0 8px 8px; margin-top: 0; border-top: none;">
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Quesadillas</div>
+          <div class="tags"><span class="tag tag-veg">Veg</span>
+            
+            
+            <span class="tag tag-nonveg">Non-Veg</span>
+          
+          
+                           <span class="tag tag-gf"></span>
+            <span class="tag tag-dairy"></span>
+          
+          
+          
+          </div>
+          <div class="item-desc">Flour tortilla stuffed with refried beans, cheese & salsa, paired with house salad and
+            nachos.</div>
+          <div class="price-variants">Veg ₹510 · Chicken ₹630 · Beef ₹690</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>510+</div>
+        </div>
       </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>560+</div></div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Pork Short Ribs</div>
+          <div class="tags"><span class="tag tag-nonveg">Non-Veg</span>
+            
+            <span class="tag tag-spicy">Spicy</span>
+          
+          
+                           <span class="tag tag-gf"></span>
+                        <span class="tag tag-dairy"></span>
+          
+          </div>
+          <div class="item-desc">Jamaican Jerk style grilled meat, grilled corn-garlic Parmesan potato wedges & sour
+            cream slaw.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>910</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Smoked Bone-in Chicken</div>
+          <div class="tags"><span class="tag tag-nonveg">Non-Veg</span>
+            
+            
+          
+           
+                        <span class="tag tag-dairy"></span>
+          
+          </div>
+          <div class="item-desc">Accompanied with cheesy potato wedges & grilled corn-cilantro salad.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>660</div>
+        </div>
+      </div>
     </div>
 
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name-row"><span class="item-name">Sri Lankan Beef Tacos</span></div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-spicy">Spicy</span></div>
-        <div class="item-desc">Mexican soul food with a twist — Ceylon style beef fry in soft shell tacos with chilli coriander aioli, onion tomato relish & cheese sauce.</div>
+    <div class="section-gap"></div>
+
+    <!-- GLOBAL BIG BITES -->
+    <div class="cat-header" id="food-global-big-bites">
+      <div class="cat-name">Global Big Bites</div>
+      <div class="cat-rule"></div>
+      <div class="cat-note">Mains from across the world</div>
+    </div>
+    <div class="items-card">
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Infused Cannelloni</div>
+          <div class="tags"><span class="tag tag-veg">Veg</span>
+            
+            
+            <span class="tag tag-sig">Signature</span>
+          
+          
+                           <span class="tag tag-gf"></span>
+                        <span class="tag tag-dairy"></span>
+          
+          </div>
+          <div class="item-desc">Creamy spinach & ricotta in tubular pasta, seasoned with garlic crostini & confit
+            cherry tomatoes.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>590</div>
+        </div>
       </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>640</div></div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Eggplant Parmigiana</div>
+          <div class="tags"><span class="tag tag-veg">Veg</span>
+          
+          
+                           <span class="tag tag-gf"></span>
+            <span class="tag tag-dairy"></span>
+                        <span class="tag tag-nuts"></span>
+          
+          </div>
+          <div class="item-desc">Topped on Spaghetti aglio olio, combined with pesto greens & paired with Parmesan
+            crisps.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>485</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Homespun Chicken</div>
+          <div class="tags"><span class="tag tag-nonveg">Non-Veg</span>
+          
+          
+                           <span class="tag tag-gf"></span>
+            <span class="tag tag-egg"></span>
+                        <span class="tag tag-dairy"></span>
+          </div>
+          <div class="item-desc">Brined chicken, shallow fried, served with cheesy mash potatoes, veggies & country
+            gravy.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>640</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Lime Leaf Chicken</div>
+          <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-sig">Signature</span></div>
+          <div class="item-desc">Vietnamese roasted chicken with kaffir lime, lemon grass & ginger — tied together with
+            coconut flavored jasmine rice & veggies.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>660</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Hawaiian Poke Bowl</div>
+          <div class="tags"><span class="tag tag-veg">Veg</span>
+            
+            
+            <span class="tag tag-nonveg">Non-Veg</span>
+          
+                                     <span class="tag tag-gf"></span>
+          
+          
+          </div>
+          <div class="item-desc">Marinated meats or vegetables with aromatic spices, bok choy, corn & mushroom, bao bun,
+            kimchi, cucumber, pickled cabbage, jasmine rice or noodles.</div>
+          <div class="price-variants">Tofu ₹560 · Chicken ₹640 · Beef ₹780 · Pork ₹890</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>560+</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Vietnamese Braised Fish</div>
+          <div class="tags"><span class="tag tag-nonveg">Non-Veg</span>
+            <span class="tag tag-sig">Signature</span>
+            
+            
+                                       <span class="tag tag-gf"></span>
+            <span class="tag tag-shellfish"></span>
+                        <span class="tag tag-dairy"></span>
+            
+            <span
+              class="tag tag-spicy">Spicy</span></div>
+          <div class="item-desc">Vietnamese caramelized fish served with buttered burnt garlic rice, Asian greens and
+            prawn crackers.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>1000</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Chimichurri Tiger Prawns</div>
+          <div class="tags"><span class="tag tag-nonveg">Non-Veg</span>
+            
+            <span class="tag tag-sig">Signature</span>
+          
+
+            <span class="tag tag-shellfish"></span>
+                        <span class="tag tag-dairy"></span>
+          
+          </div>
+          <div class="item-desc">Served with spicy greens, mashed potatoes, parsley cheese sauce and salad.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>1200</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Asian Steak</div>
+          <div class="tags"><span class="tag tag-nonveg">Non-Veg</span>
+          
+          
+                                     <span class="tag tag-gf"></span>
+                        <span class="tag tag-dairy"></span>
+          
+          </div>
+          <div class="item-desc">Chateaubriand steak with peppery demi glaze, mashed potatoes & grilled vegetables.
+          </div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>810</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Sri Lankan One Pot Beef Curry</div>
+          <div class="tags"><span class="tag tag-nonveg">Non-Veg</span>
+            
+            <span class="tag tag-spicy">Spicy</span><span
+              class="tag tag-sig">Signature</span>
+            
+
+                                         <span class="tag tag-gf"></span>
+ 
+            </div>
+          <div class="item-desc">Spicy tender cut beef with potatoes in seasoned gravy, served with coconut jasmine
+            rice, appalam & onion-tomato citrusy relish.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>810</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Barbequed Pork</div>
+          <div class="tags"><span class="tag tag-nonveg">Non-Veg</span>
+            
+            <span class="tag tag-sig">Signature</span>
+          
+                                     <span class="tag tag-gf"></span>
+                        <span class="tag tag-dairy"></span>
+          
+          </div>
+          <div class="item-desc">Rich ribs ideally offset by clean, crunchy kimchi salad & cheese crusted macaroni.
+          </div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>910</div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name-row"><span class="item-name">Glutted Bao</span></div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span></div>
-        <div class="item-desc">Slow cooked pulled pork / chicken with kimchi and spicy Asian chimichurri in fluffy bao.</div>
-        <div class="price-variants">Pork ₹550 · Chicken ₹530</div>
+    <div class="section-gap"></div>
+
+    <!-- GLAZED BITES -->
+    <div class="cat-header" id="food-glazed-bites">
+      <div class="cat-name">Glazed Bites</div>
+      <div class="cat-rule"></div>
+      <div class="cat-note">Rice, Noodles & Pasta — for sustained energy</div>
+    </div>
+    <div class="items-card">
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Cantonese Style BBQ Fried Rice</div>
+          <div class="tags"><span class="tag tag-nonveg">Non-Veg</span></div>
+          <div class="item-desc">Tender chicken with al-dente veggies, sweet & smoky savor.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>530</div>
+        </div>
       </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>530+</div></div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Ramen</div>
+          <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-spicy">Spicy</span></div>
+          <div class="item-desc">Japanese influenced — ginger & soya with succulent chicken / beef tenders simmered in
+            fragrant broth, Udon noodles, vegetables and leafy greens.</div>
+          <div class="price-variants">Chicken ₹500 · Beef ₹640</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>500+</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Pasta</div>
+          <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-nonveg">Non-Veg</span></div>
+          <div class="item-desc">Spaghetti or Penne — Marinara / Béchamel / Pesto or Aglio Olio, served with garlic
+            toast.</div>
+          <div class="price-variants">Veg ₹455 · Chicken ₹515</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>455+</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Smoked Shrimp Pasta</div>
+          <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-sig">Signature</span></div>
+          <div class="item-desc">Creamy smoked shrimp spaghetti with garlic butter mustard Parmesan flavor.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>700</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Mac n Cheese</div>
+          <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-nonveg">Non-Veg</span></div>
+          <div class="item-desc">Gratinated casserole — macaroni & cheese tossed in Mornay sauce with pesto garlic
+            bread.</div>
+          <div class="price-variants">Veg ₹410 · Chicken ₹520</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>410+</div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name-row"><span class="item-name">Calamari Fritters</span></div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span></div>
-        <div class="item-desc">Pre-marinated squid rings in light home-made batter, deep fried, served with cilantro tartar.</div>
+    <div class="section-gap"></div>
+
+    <!-- STUFFED BITES -->
+    <div class="cat-header" id="food-stuffed-bites">
+      <div class="cat-name">Stuffed Bites</div>
+      <div class="cat-rule"></div>
+      <div class="cat-note">Burgers, wraps, pizza</div>
+    </div>
+    <div class="items-card">
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Fiery Gyros</div>
+          <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-spicy">Spicy</span></div>
+          <div class="item-desc">Spice-marinated chicken grilled to perfection, layered in toasted pita bread with
+            garlic aioli & spicy sauce, pickled veggies and cheese.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>550</div>
+        </div>
       </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>520</div></div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Char Grilled Smash Burger</div>
+          <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-sig">Signature</span></div>
+          <div class="item-desc">Seasoned-herbed flat top smashed double-patty beef burger, lettuce, tomatoes, pickled
+            spear, cheese, cilantro-chili relish, mozzarella potato wedges & Italian dressing.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>550</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Vegan Ciabatta</div>
+          <div class="tags"><span class="tag tag-vegan">Vegan</span></div>
+          <div class="item-desc">Mediterranean grilled veggies, cilantro, avocado, barbeque hummus, house salad and
+            garlic herb potato wedges.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>500</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Romana Pizzas</div>
+          <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-nonveg">Non-Veg</span><span
+              class="tag tag-time">3pm–7pm</span></div>
+          <div class="item-desc">Margherita / Veggie / Chicken.</div>
+          <div class="price-variants">Margherita ₹630 · Veggie ₹670 · Chicken ₹776</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>630+</div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name-row"><span class="item-name">Prawns Kataifi</span></div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-sig">Signature</span></div>
-        <div class="item-desc">Crisp golden Kunafa wrapped prawns — a perfect contrast to hot garlic sauce with house salad.</div>
+    <div class="section-gap"></div>
+
+    <!-- DESSERTS -->
+    <div class="cat-header" id="food-desserts">
+      <div class="cat-name">Desserts</div>
+      <div class="cat-rule"></div>
+    </div>
+    <div class="items-card">
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Chocolate Nemesis</div>
+          <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-gf">Gluten Free</span></div>
+          <div class="item-desc">Rich & decadent cake with dense & fudgy texture.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>400</div>
+        </div>
       </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>630</div></div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Mile-high Mud Pie</div>
+          <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-sig">Signature</span></div>
+          <div class="item-desc">Layers of coffee & chocolate with ribbons of fudge sauce.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>400</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Biscoff Tiramisu</div>
+          <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-sig">Signature</span></div>
+          <div class="item-desc">Softened cheese with Biscoff & coffee.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>400</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Pistachio Kunafa Ganache</div>
+          <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-sig">Signature</span></div>
+          <div class="item-desc">Creamy medley of rich ganache, crunchy Kunafa & cheese, nutty pistachio blended to
+            perfection.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>410</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">German Chocolate Cake</div>
+          <div class="tags"><span class="tag tag-veg">Veg</span></div>
+          <div class="item-desc">Layered cake with coconut-pecan frosting.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>405</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Tres Leches</div>
+          <div class="tags"><span class="tag tag-veg">Veg</span></div>
+          <div class="item-desc">Classic Mexican cake soaked in three types of milk.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>370</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Sticky Brownie</div>
+          <div class="tags"><span class="tag tag-veg">Veg</span></div>
+          <div class="item-desc">Gooey, loaded with nuts & chocolate, served with ice cream.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>400</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Samoa Cheesecake</div>
+          <div class="tags"><span class="tag tag-veg">Veg</span></div>
+          <div class="item-desc">No-bake cheesecake with chocolate cookie crust.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>400</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Home Churned Ice-creams</div>
+          <div class="tags"><span class="tag tag-veg">Veg</span></div>
+          <div class="item-desc">Banana Caramel · Blueberry Swirl · Tender-coconut · Vanilla</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>270</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Seasonal Fruit Platter</div>
+          <div class="tags"><span class="tag tag-vegan">Vegan</span></div>
+          <div class="item-desc">A selection of fresh seasonal fruits.</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>380</div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name-row"><span class="item-name">Fiery Chicken Lollipop</span></div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-spicy">Spicy</span></div>
-        <div class="item-desc">Chilli spiked juicy & tender chicken with Thai rainbow salad.</div>
+    <div class="bottom-space"></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!--               COFFEE SECTION                    -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="menu-section" id="section-coffee">
+
+    <!-- ORIGIN STRIP -->
+    <div style="height:16px; background: var(--section-bg);"></div>
+    <div class="origin-strip">
+      <div class="origin-title">Our Coffee — Café Grande</div>
+      <div class="origin-body">
+        Tasting Notes: Toasted bread & dried fruits &nbsp;·&nbsp; Variety: Blend of Arabica & Robusta<br>
+        Roast Level: Medium-dark &nbsp;·&nbsp; Processing: Washed &nbsp;·&nbsp; Origin: <strong>Chikmagalur &
+          Coorg</strong>
       </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>640</div></div>
     </div>
 
+    <!-- HOT COFFEE -->
+    <div class="cat-header" id="coffee-hot-coffee" style="padding-top: 20px;">
+      <div class="cat-name">Hot Coffee</div>
+      <div class="cat-rule"></div>
+    </div>
+    <div class="items-card">
+
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Espresso</div>
+          <div class="item-desc">Single or Doppio</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>170 / 210</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Cortado</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>260</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Con-Panna</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>280</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Macchiato</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>260</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Affogato</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>260</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Café Bombon</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>260</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Americano</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>250</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Cappuccino</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>290</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Latte</div>
+          <div class="item-desc">Flavors: Hazelnut · Vanilla · Saffron · Caramel — ₹310<br>Special: Golden Turmeric ·
+            Honey Spices · Cinnamon — ₹350</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>300+</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Mocha</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>310</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Flat White</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>300</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Vegan Latte</div>
+          <div class="tags"><span class="tag tag-vegan">Vegan</span></div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>350</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section-gap"></div>
+
+    <!-- COLD COFFEE -->
+    <div class="cat-header" id="coffee-cold-coffee">
+      <div class="cat-name">Cold Coffee</div>
+      <div class="cat-rule"></div>
+    </div>
+    <div class="items-card">
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Cold Coffee</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>310</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Ice Coffee</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>300</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <!-- BREW -->
+    <div class="cat-header" id="coffee-brew">
+      <div class="cat-name">Brew</div>
+      <div class="cat-rule"></div>
+    </div>
+    <div class="items-card">
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Brew Black</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>260</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Maple Brew</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>280</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Vietnamese Cold Brew</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>300</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Rose Vanilla Brew</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>300</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <!-- MATCHA -->
+    <div class="cat-header" id="coffee-matcha">
+      <div class="cat-name">Matcha</div>
+      <div class="cat-rule"></div>
+    </div>
+    <div class="items-card">
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Classic Matcha</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>310</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Coconut Matcha</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>290</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Matcha Affogato</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>290</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <!-- TEA -->
+    <div class="cat-header" id="coffee-tea">
+      <div class="cat-name">Tea</div>
+      <div class="cat-rule"></div>
+    </div>
+    <div class="items-card">
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Selection of Black Tea</div>
+          <div class="item-desc">Assam · Darjeeling · English Breakfast · Earl Grey</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>210</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Herbal Tea</div>
+          <div class="item-desc">Basil Ginger · Chamomile · Blue Pea · Green Jasmine · Green Lemon</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>210</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Chai</div>
+          <div class="item-desc">Masala · Adrak · Elaichi</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>210</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <!-- ICED TEA -->
+    <div class="cat-header" id="coffee-iced-tea">
+      <div class="cat-name">Iced Tea</div>
+      <div class="cat-rule"></div>
+    </div>
+    <div class="items-card">
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Classic</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>290</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Peach</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>290</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Mint and Ginger</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>290</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Thai Iced Tea</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>310</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Blue Pea Iced Tea</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>310</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-space"></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!--               DRINKS SECTION                    -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="menu-section" id="section-drinks">
+
+    <!-- SHAKES -->
+    <div class="cat-header" id="drinks-classic-shakes" style="padding-top: 20px;">
+      <div class="cat-name">Classic Shakes</div>
+      <div class="cat-rule"></div>
+    </div>
+
+    <div class="items-card">
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Vanilla</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>350</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Chocolate</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>350</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Strawberry</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>350</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Fig and Dates</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>370</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Cookie and Cream</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>370</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Chocolate Cookie</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>370</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Avocado Almond</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>370</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Strawberry Oreo</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>370</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <!-- VEGAN SHAKES -->
+    <div class="cat-header" id="drinks-vegan-shakes">
+      <div class="cat-name">Vegan Shakes</div>
+      <div class="cat-rule"></div>
+    </div>
+    <div class="items-card">
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Banana Oatmeal</div>
+          <div class="tags"><span class="tag tag-vegan">Vegan</span></div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>360</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Almond and Avocado</div>
+          <div class="tags"><span class="tag tag-vegan">Vegan</span></div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>360</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Peanut Butter and Coconut</div>
+          <div class="tags"><span class="tag tag-vegan">Vegan</span></div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>360</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <!-- SMOOTHIES -->
+    <div class="cat-header" id="drinks-smoothies">
+      <div class="cat-name">Smoothies</div>
+      <div class="cat-rule"></div>
+    </div>
+    <div class="items-card">
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Berrylicious</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>370</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Dates and Banana</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>370</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Chocolate Cookie</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>370</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Oats & Caffeine</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>370</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <!-- FRAPPE -->
+    <div class="cat-header" id="drinks-frappe">
+      <div class="cat-name">Frappe</div>
+      <div class="cat-rule"></div>
+    </div>
+    <div class="items-card">
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Mocha Choco</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>370</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Coffee Fudge</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>370</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Caramel Choco</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>370</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Matcha Cookie</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>390</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <!-- MOCKTAILS -->
+    <div class="cat-header" id="drinks-mocktails">
+      <div class="cat-name">Mocktails</div>
+      <div class="cat-rule"></div>
+      <div class="cat-note">House crafted — all signature</div>
+    </div>
+    <div class="items-card">
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Berry Blossom</div>
+          <div class="tags"><span class="tag tag-sig">Signature</span></div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>280</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Baker's Pineapple Switchel</div>
+          <div class="tags"><span class="tag tag-sig">Signature</span></div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>280</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Sarsaparilla Ginger Beer</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>290</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Cucumber Basil Smash</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>290</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Honolulu</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>280</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Berry Thyme Cooler</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>300</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Maracuja</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>280</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Tropical Fruit Bliss</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>310</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Turmeric Tepache</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>280</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <!-- PROBIOTICS -->
+    <div class="cat-header" id="drinks-probiotics">
+      <div class="cat-name">House Fermented Probiotic Drinks</div>
+      <div class="cat-rule"></div>
+    </div>
+    <div class="items-card">
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Classic Ginger Kombucha</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>280</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Turmeric Tepache</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>280</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <!-- DETOX -->
+    <div class="cat-header" id="drinks-detox">
+      <div class="cat-name">Detox</div>
+      <div class="cat-rule"></div>
+      <div class="cat-note">Cold pressed — house blended</div>
+    </div>
+    <div class="items-card">
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Anti-Virus</div>
+          <div class="item-desc">Apple & Orange</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>370</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Blood Cleanser</div>
+          <div class="item-desc">Apple, Beet & Celery</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>370</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Flush</div>
+          <div class="item-desc">Cucumber, Celery & Lime juice</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>370</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Highflyer</div>
+          <div class="item-desc">Cucumber, Spinach & Carrot</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>370</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Glow</div>
+          <div class="item-desc">Orange and Dragon fruit</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>370</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <!-- FRESH JUICE -->
+    <div class="cat-header" id="drinks-fresh-juice">
+      <div class="cat-name">Fresh Juice</div>
+      <div class="cat-rule"></div>
+    </div>
+    <div class="items-card">
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Pineapple</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>350</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Watermelon</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>350</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Orange</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>390</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <!-- HOUSE WATER -->
+    <div class="cat-header" id="drinks-house-water">
+      <div class="cat-name">House Water</div>
+      <div class="cat-rule"></div>
+    </div>
+    <div class="items-card">
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Still</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>350</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-left">
+          <div class="item-name">Sparkling</div>
+        </div>
+        <div class="item-right">
+          <div class="item-price"><span class="rupee">₹</span>450</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-space"></div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!--                  INFO SECTION                   -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="menu-section" id="section-info">
+    <div style="padding: 24px 20px;">
+
+      <div
+        style="background: var(--white); border-radius: 8px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 16px;">
+        <div style="background: var(--terracotta); padding: 16px 20px;">
+          <div style="font-family: 'Cormorant Garamond', serif; font-size: 22px; color: white; font-weight: 400;">Visit
+            Us</div>
+        </div>
+        <div style="padding: 20px; font-size: 13.5px; color: var(--ink-soft); line-height: 2.2;">
+          <div>📍 18/1400-1, Vikraman Hills, Kuravankonam</div>
+          <div>Kowdiar P.O., Thiruvananthapuram – 695003</div>
+          <div style="margin-top: 8px;">🕐 Open Daily: 11:00 AM to 11:00 PM</div>
+          <div style="margin-top: 8px;">📞 +91 0471 4617709 / 10 / 11 / 12</div>
+          <div>📱 Reservations: +91 8714642900</div>
+          <div style="margin-top: 8px;">✉️ reservations@bakersarch.in</div>
+          <div style="margin-top: 8px;">🌐 bakersarch.in</div>
+          <div>📸 @bakersarchcafe</div>
+        </div>
+      </div>
+
+
+
+
+
+      <div
+        style="background: var(--white); border-radius: 8px; border: 1px solid var(--border); padding: 20px; margin-bottom: 16px;">
+        <div
+          style="font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--ink); font-weight: 400; margin-bottom: 12px;">
+          Allergen Information</div>
+        <div style="font-size: 12.5px; color: var(--muted); line-height: 1.9;">
+          <p>Please speak to our associate in case of any dietary requirements or specific food allergens.</p>
+          <p style="margin-top: 8px;">⚠️ Taxes extra as applicable.</p>
+          <p style="margin-top: 4px;">We use only <strong>refined vegetable oil</strong> for all cooking.</p>
+          <p style="margin-top: 8px;"><strong>Contains allergens:</strong> Nuts · Shellfish · Gluten · Egg · Dairy</p>
+        </div>
+      </div>
+
+      <div
+        style="background: var(--terracotta-pale); border-radius: 8px; border: 1px solid rgba(181,69,27,0.2); padding: 20px; margin-bottom: 16px;">
+        <div
+          style="font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; color: var(--terracotta); margin-bottom: 10px;">
+          "Created with passion and served with love. Food unites people."</div>
+        <div style="font-size: 12px; color: var(--muted);">REVE Luxury Awards 2025 Winner &nbsp;·&nbsp; Muthoot
+          Pappachan Group</div>
+      </div>
+
+    </div>
+    <div class="bottom-space"></div>
+  </section>
+
+
+  <!-- ALLERGEN FOOTER -->
+  <div class="allergen-footer">
+    <strong>Veg</strong> · <strong>Non-Veg</strong> · <strong>Vegan</strong> · <strong>Healthy</strong> ·
+    <strong>Signature</strong> · <strong>Spicy</strong><br>
+    Nuts · Shellfish · Gluten · Egg · Dairy<br>
+    Please speak to our associate for dietary requirements & allergen information.<br>
+    *Taxes extra as applicable. We use only refined vegetable oil for cooking.
   </div>
 
-  <div class="section-gap"></div>
-
-  <!-- SOUPS & SALADS -->
-  <div class="cat-header" id="food-soups-salads">
-    <div class="cat-name">Soups & Salads</div>
-    <div class="cat-rule"></div>
+  <!-- BACK COVER SNIPPET -->
+  <div class="back-cover">
+    <p>"Architecture is not about form or function alone — it is about the people for whom it is made."<br><em
+        style="font-size:13px;">— Laurie Baker</em></p>
+    <div class="contact-line">18/1400-1 Vikraman Hills · Kowdiar · Trivandrum – 695003</div>
+    <div class="social">@bakersarchcafe &nbsp;·&nbsp; bakersarch.in</div>
   </div>
 
-  <div class="subcat-header"><div class="subcat-name">Soups</div></div>
-  <div class="items-card">
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Chef's Unusual Twist</div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-spicy">Spicy</span><span class="tag tag-sig">Signature</span></div>
-        <div class="item-desc">Spicy-sweet & sour, mild broth with poached chicken. Features extraordinary textures & flavors flawlessly melting together.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>330</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Velutata Di Zucca Con Funghi</div>
-        <div class="tags"><span class="tag tag-veg">Veg</span></div>
-        <div class="item-desc">Velouté of pumpkin & potato with mushrooms & garlic crostini.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>310</div></div>
-    </div>
-  </div>
-
-  <div class="subcat-header"><div class="subcat-name">Salads</div></div>
-  <div class="items-card">
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Kale & Quinoa</div>
-        <div class="tags"><span class="tag tag-vegan">Vegan</span><span class="tag tag-health">Healthy</span></div>
-        <div class="item-desc">Cherry tomatoes, bell peppers, avocado, red onions, assorted nuts & fluffy quinoa tossed in lemon vinaigrette.</div>
-        <div class="price-variants">Regular ₹410 · With Tofu ₹440</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>410+</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Southwest Steak Salad</div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-sig">Signature</span></div>
-        <div class="item-desc">Chilli lime seasoned tenderloin beef steak on fresh greens, sweet corn, red beans, tomatoes, peppers, green onions & ripe avocado with herbed ranch dressing.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>420</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Tropical Salad</div>
-        <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-health">Healthy</span></div>
-        <div class="item-desc">Chilled salad with hummus, butterhead lettuce, cucumber, pickled radish, pumpkin seeds & coconut with seasonal fruits in a citrus blueberry dressing.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>420</div></div>
-    </div>
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- SENSATIONAL PLATTERS -->
-  <div class="cat-header" id="food-sensational-platters">
-    <div class="cat-name">Our Sensational Platters</div>
-    <div class="cat-rule"></div>
-  </div>
-  <div class="items-card">
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Mezze Platter</div>
-        <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-sig">Signature</span></div>
-        <div class="item-desc">Za'atar spice-rubbed grilled chicken / hummus / baba ghanoush / muhammara / olives / pickles / pita / focaccia / matnakash.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>970</div></div>
-    </div>
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- FUSION GRILL -->
-  <div class="grill-banner" id="food-fusion-grill">
-    <div class="grill-title">Our Fusion Grill</div>
-    <div class="grill-subtitle">"A blend of smoking-braising & grilling — where the heat can spice & texture up the meat"</div>
-  </div>
-  <div class="items-card" style="border-radius: 0 0 8px 8px; margin-top: 0; border-top: none;">
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Quesadillas</div>
-        <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-nonveg">Non-Veg</span></div>
-        <div class="item-desc">Flour tortilla stuffed with refried beans, cheese & salsa, paired with house salad and nachos.</div>
-        <div class="price-variants">Veg ₹510 · Chicken ₹630 · Beef ₹690</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>510+</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Pork Short Ribs</div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-spicy">Spicy</span></div>
-        <div class="item-desc">Jamaican Jerk style grilled meat, grilled corn-garlic Parmesan potato wedges & sour cream slaw.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>910</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Smoked Bone-in Chicken</div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-sig">Signature</span></div>
-        <div class="item-desc">Accompanied with cheesy potato wedges & grilled corn-cilantro salad.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>660</div></div>
-    </div>
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- GLOBAL BIG BITES -->
-  <div class="cat-header" id="food-global-big-bites">
-    <div class="cat-name">Global Big Bites</div>
-    <div class="cat-rule"></div>
-    <div class="cat-note">Mains from across the world</div>
-  </div>
-  <div class="items-card">
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Infused Cannelloni</div>
-        <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-sig">Signature</span></div>
-        <div class="item-desc">Creamy spinach & ricotta in tubular pasta, seasoned with garlic crostini & confit cherry tomatoes.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>590</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Eggplant Parmigiana</div>
-        <div class="tags"><span class="tag tag-veg">Veg</span></div>
-        <div class="item-desc">Topped on Spaghetti aglio olio, combined with pesto greens & paired with Parmesan crisps.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>485</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Homespun Chicken</div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span></div>
-        <div class="item-desc">Brined chicken, shallow fried, served with cheesy mash potatoes, veggies & country gravy.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>640</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Lime Leaf Chicken</div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-sig">Signature</span></div>
-        <div class="item-desc">Vietnamese roasted chicken with kaffir lime, lemon grass & ginger — tied together with coconut flavored jasmine rice & veggies.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>660</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Hawaiian Poke Bowl</div>
-        <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-nonveg">Non-Veg</span></div>
-        <div class="item-desc">Marinated meats or vegetables with aromatic spices, bok choy, corn & mushroom, bao bun, kimchi, cucumber, pickled cabbage, jasmine rice or noodles.</div>
-        <div class="price-variants">Tofu ₹560 · Chicken ₹640 · Beef ₹780 · Pork ₹890</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>560+</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Vietnamese Braised Fish</div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-sig">Signature</span><span class="tag tag-spicy">Spicy</span></div>
-        <div class="item-desc">Vietnamese caramelized fish served with buttered burnt garlic rice, Asian greens and prawn crackers.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>1000</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Chimichurri Tiger Prawns</div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-sig">Signature</span></div>
-        <div class="item-desc">Served with spicy greens, mashed potatoes, parsley cheese sauce and salad.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>1200</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Asian Steak</div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span></div>
-        <div class="item-desc">Chateaubriand steak with peppery demi glaze, mashed potatoes & grilled vegetables.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>810</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Sri Lankan One Pot Beef Curry</div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-spicy">Spicy</span><span class="tag tag-sig">Signature</span></div>
-        <div class="item-desc">Spicy tender cut beef with potatoes in seasoned gravy, served with coconut jasmine rice, appalam & onion-tomato citrusy relish.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>810</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Barbequed Pork</div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-sig">Signature</span></div>
-        <div class="item-desc">Rich ribs ideally offset by clean, crunchy kimchi salad & cheese crusted macaroni.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>910</div></div>
-    </div>
-
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- GLAZED BITES -->
-  <div class="cat-header" id="food-glazed-bites">
-    <div class="cat-name">Glazed Bites</div>
-    <div class="cat-rule"></div>
-    <div class="cat-note">Rice, Noodles & Pasta — for sustained energy</div>
-  </div>
-  <div class="items-card">
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Cantonese Style BBQ Fried Rice</div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span></div>
-        <div class="item-desc">Tender chicken with al-dente veggies, sweet & smoky savor.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>530</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Ramen</div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-spicy">Spicy</span></div>
-        <div class="item-desc">Japanese influenced — ginger & soya with succulent chicken / beef tenders simmered in fragrant broth, Udon noodles, vegetables and leafy greens.</div>
-        <div class="price-variants">Chicken ₹500 · Beef ₹640</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>500+</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Pasta</div>
-        <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-nonveg">Non-Veg</span></div>
-        <div class="item-desc">Spaghetti or Penne — Marinara / Béchamel / Pesto or Aglio Olio, served with garlic toast.</div>
-        <div class="price-variants">Veg ₹455 · Chicken ₹515</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>455+</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Smoked Shrimp Pasta</div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-sig">Signature</span></div>
-        <div class="item-desc">Creamy smoked shrimp spaghetti with garlic butter mustard Parmesan flavor.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>700</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Mac n Cheese</div>
-        <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-nonveg">Non-Veg</span></div>
-        <div class="item-desc">Gratinated casserole — macaroni & cheese tossed in Mornay sauce with pesto garlic bread.</div>
-        <div class="price-variants">Veg ₹410 · Chicken ₹520</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>410+</div></div>
-    </div>
-
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- STUFFED BITES -->
-  <div class="cat-header" id="food-stuffed-bites">
-    <div class="cat-name">Stuffed Bites</div>
-    <div class="cat-rule"></div>
-    <div class="cat-note">Burgers, wraps, pizza</div>
-  </div>
-  <div class="items-card">
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Fiery Gyros</div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-spicy">Spicy</span></div>
-        <div class="item-desc">Spice-marinated chicken grilled to perfection, layered in toasted pita bread with garlic aioli & spicy sauce, pickled veggies and cheese.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>550</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Char Grilled Smash Burger</div>
-        <div class="tags"><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-sig">Signature</span></div>
-        <div class="item-desc">Seasoned-herbed flat top smashed double-patty beef burger, lettuce, tomatoes, pickled spear, cheese, cilantro-chili relish, mozzarella potato wedges & Italian dressing.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>550</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Vegan Ciabatta</div>
-        <div class="tags"><span class="tag tag-vegan">Vegan</span></div>
-        <div class="item-desc">Mediterranean grilled veggies, cilantro, avocado, barbeque hummus, house salad and garlic herb potato wedges.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>500</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Romana Pizzas</div>
-        <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-nonveg">Non-Veg</span><span class="tag tag-time">3pm–7pm</span></div>
-        <div class="item-desc">Margherita / Veggie / Chicken.</div>
-        <div class="price-variants">Margherita ₹630 · Veggie ₹670 · Chicken ₹776</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>630+</div></div>
-    </div>
-
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- DESSERTS -->
-  <div class="cat-header" id="food-desserts">
-    <div class="cat-name">Desserts</div>
-    <div class="cat-rule"></div>
-  </div>
-  <div class="items-card">
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Chocolate Nemesis</div>
-        <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-gf">Gluten Free</span></div>
-        <div class="item-desc">Rich & decadent cake with dense & fudgy texture.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>400</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Mile-high Mud Pie</div>
-        <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-sig">Signature</span></div>
-        <div class="item-desc">Layers of coffee & chocolate with ribbons of fudge sauce.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>400</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Biscoff Tiramisu</div>
-        <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-sig">Signature</span></div>
-        <div class="item-desc">Softened cheese with Biscoff & coffee.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>400</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Pistachio Kunafa Ganache</div>
-        <div class="tags"><span class="tag tag-veg">Veg</span><span class="tag tag-sig">Signature</span></div>
-        <div class="item-desc">Creamy medley of rich ganache, crunchy Kunafa & cheese, nutty pistachio blended to perfection.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>410</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">German Chocolate Cake</div>
-        <div class="tags"><span class="tag tag-veg">Veg</span></div>
-        <div class="item-desc">Layered cake with coconut-pecan frosting.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>405</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Tres Leches</div>
-        <div class="tags"><span class="tag tag-veg">Veg</span></div>
-        <div class="item-desc">Classic Mexican cake soaked in three types of milk.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>370</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Sticky Brownie</div>
-        <div class="tags"><span class="tag tag-veg">Veg</span></div>
-        <div class="item-desc">Gooey, loaded with nuts & chocolate, served with ice cream.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>400</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Samoa Cheesecake</div>
-        <div class="tags"><span class="tag tag-veg">Veg</span></div>
-        <div class="item-desc">No-bake cheesecake with chocolate cookie crust.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>400</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Home Churned Ice-creams</div>
-        <div class="tags"><span class="tag tag-veg">Veg</span></div>
-        <div class="item-desc">Banana Caramel · Blueberry Swirl · Tender-coconut · Vanilla</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>270</div></div>
-    </div>
-
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Seasonal Fruit Platter</div>
-        <div class="tags"><span class="tag tag-vegan">Vegan</span></div>
-        <div class="item-desc">A selection of fresh seasonal fruits.</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>380</div></div>
-    </div>
-
-  </div>
-
-  <div class="bottom-space"></div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════════ -->
-<!--               COFFEE SECTION                    -->
-<!-- ═══════════════════════════════════════════════ -->
-<section class="menu-section" id="section-coffee">
-
-  <!-- ORIGIN STRIP -->
-  <div style="height:16px; background: var(--section-bg);"></div>
-  <div class="origin-strip">
-    <div class="origin-title">Our Coffee — Café Grande</div>
-    <div class="origin-body">
-      Tasting Notes: Toasted bread & dried fruits &nbsp;·&nbsp; Variety: Blend of Arabica & Robusta<br>
-      Roast Level: Medium-dark &nbsp;·&nbsp; Processing: Washed &nbsp;·&nbsp; Origin: <strong>Chikmagalur & Coorg</strong>
-    </div>
-  </div>
-
-  <!-- HOT COFFEE -->
-  <div class="cat-header" id="coffee-hot-coffee" style="padding-top: 20px;">
-    <div class="cat-name">Hot Coffee</div>
-    <div class="cat-rule"></div>
-  </div>
-  <div class="items-card">
-
-    <div class="item">
-      <div class="item-left"><div class="item-name">Espresso</div><div class="item-desc">Single or Doppio</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>170 / 210</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Cortado</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>260</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Con-Panna</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>280</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Macchiato</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>260</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Affogato</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>260</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Café Bombon</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>260</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Americano</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>250</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Cappuccino</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>290</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Latte</div>
-        <div class="item-desc">Flavors: Hazelnut · Vanilla · Saffron · Caramel — ₹310<br>Special: Golden Turmeric · Honey Spices · Cinnamon — ₹350</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>300+</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Mocha</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>310</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Flat White</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>300</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Vegan Latte</div>
-        <div class="tags"><span class="tag tag-vegan">Vegan</span></div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>350</div></div>
-    </div>
-
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- COLD COFFEE -->
-  <div class="cat-header" id="coffee-cold-coffee">
-    <div class="cat-name">Cold Coffee</div>
-    <div class="cat-rule"></div>
-  </div>
-  <div class="items-card">
-    <div class="item">
-      <div class="item-left"><div class="item-name">Cold Coffee</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>310</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Ice Coffee</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>300</div></div>
-    </div>
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- BREW -->
-  <div class="cat-header" id="coffee-brew">
-    <div class="cat-name">Brew</div>
-    <div class="cat-rule"></div>
-  </div>
-  <div class="items-card">
-    <div class="item">
-      <div class="item-left"><div class="item-name">Brew Black</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>260</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Maple Brew</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>280</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Vietnamese Cold Brew</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>300</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Rose Vanilla Brew</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>300</div></div>
-    </div>
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- MATCHA -->
-  <div class="cat-header" id="coffee-matcha">
-    <div class="cat-name">Matcha</div>
-    <div class="cat-rule"></div>
-  </div>
-  <div class="items-card">
-    <div class="item">
-      <div class="item-left"><div class="item-name">Classic Matcha</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>310</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Coconut Matcha</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>290</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Matcha Affogato</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>290</div></div>
-    </div>
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- TEA -->
-  <div class="cat-header" id="coffee-tea">
-    <div class="cat-name">Tea</div>
-    <div class="cat-rule"></div>
-  </div>
-  <div class="items-card">
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Selection of Black Tea</div>
-        <div class="item-desc">Assam · Darjeeling · English Breakfast · Earl Grey</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>210</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Herbal Tea</div>
-        <div class="item-desc">Basil Ginger · Chamomile · Blue Pea · Green Jasmine · Green Lemon</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>210</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left">
-        <div class="item-name">Chai</div>
-        <div class="item-desc">Masala · Adrak · Elaichi</div>
-      </div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>210</div></div>
-    </div>
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- ICED TEA -->
-  <div class="cat-header" id="coffee-iced-tea">
-    <div class="cat-name">Iced Tea</div>
-    <div class="cat-rule"></div>
-  </div>
-  <div class="items-card">
-    <div class="item">
-      <div class="item-left"><div class="item-name">Classic</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>290</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Peach</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>290</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Mint and Ginger</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>290</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Thai Iced Tea</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>310</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Blue Pea Iced Tea</div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>310</div></div>
-    </div>
-  </div>
-
-  <div class="bottom-space"></div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════════ -->
-<!--               DRINKS SECTION                    -->
-<!-- ═══════════════════════════════════════════════ -->
-<section class="menu-section" id="section-drinks">
-
-  <!-- SHAKES -->
-  <div class="cat-header" id="drinks-classic-shakes" style="padding-top: 20px;">
-    <div class="cat-name">Classic Shakes</div>
-    <div class="cat-rule"></div>
-  </div>
-
-  <div class="items-card">
-    <div class="item"><div class="item-left"><div class="item-name">Vanilla</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>350</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Chocolate</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>350</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Strawberry</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>350</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Fig and Dates</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>370</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Cookie and Cream</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>370</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Chocolate Cookie</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>370</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Avocado Almond</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>370</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Strawberry Oreo</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>370</div></div></div>
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- VEGAN SHAKES -->
-  <div class="cat-header" id="drinks-vegan-shakes">
-    <div class="cat-name">Vegan Shakes</div>
-    <div class="cat-rule"></div>
-  </div>
-  <div class="items-card">
-    <div class="item">
-      <div class="item-left"><div class="item-name">Banana Oatmeal</div><div class="tags"><span class="tag tag-vegan">Vegan</span></div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>360</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Almond and Avocado</div><div class="tags"><span class="tag tag-vegan">Vegan</span></div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>360</div></div>
-    </div>
-    <div class="item">
-      <div class="item-left"><div class="item-name">Peanut Butter and Coconut</div><div class="tags"><span class="tag tag-vegan">Vegan</span></div></div>
-      <div class="item-right"><div class="item-price"><span class="rupee">₹</span>360</div></div>
-    </div>
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- SMOOTHIES -->
-  <div class="cat-header" id="drinks-smoothies">
-    <div class="cat-name">Smoothies</div>
-    <div class="cat-rule"></div>
-  </div>
-  <div class="items-card">
-    <div class="item"><div class="item-left"><div class="item-name">Berrylicious</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>370</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Dates and Banana</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>370</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Chocolate Cookie</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>370</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Oats & Caffeine</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>370</div></div></div>
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- FRAPPE -->
-  <div class="cat-header" id="drinks-frappe">
-    <div class="cat-name">Frappe</div>
-    <div class="cat-rule"></div>
-  </div>
-  <div class="items-card">
-    <div class="item"><div class="item-left"><div class="item-name">Mocha Choco</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>370</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Coffee Fudge</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>370</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Caramel Choco</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>370</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Matcha Cookie</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>390</div></div></div>
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- MOCKTAILS -->
-  <div class="cat-header" id="drinks-mocktails">
-    <div class="cat-name">Mocktails</div>
-    <div class="cat-rule"></div>
-    <div class="cat-note">House crafted — all signature</div>
-  </div>
-  <div class="items-card">
-    <div class="item"><div class="item-left"><div class="item-name">Berry Blossom</div><div class="tags"><span class="tag tag-sig">Signature</span></div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>280</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Baker's Pineapple Switchel</div><div class="tags"><span class="tag tag-sig">Signature</span></div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>280</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Sarsaparilla Ginger Beer</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>290</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Cucumber Basil Smash</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>290</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Honolulu</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>280</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Berry Thyme Cooler</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>300</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Maracuja</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>280</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Tropical Fruit Bliss</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>310</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Turmeric Tepache</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>280</div></div></div>
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- PROBIOTICS -->
-  <div class="cat-header" id="drinks-probiotics">
-    <div class="cat-name">House Fermented Probiotic Drinks</div>
-    <div class="cat-rule"></div>
-  </div>
-  <div class="items-card">
-    <div class="item"><div class="item-left"><div class="item-name">Classic Ginger Kombucha</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>280</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Turmeric Tepache</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>280</div></div></div>
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- DETOX -->
-  <div class="cat-header" id="drinks-detox">
-    <div class="cat-name">Detox</div>
-    <div class="cat-rule"></div>
-    <div class="cat-note">Cold pressed — house blended</div>
-  </div>
-  <div class="items-card">
-    <div class="item"><div class="item-left"><div class="item-name">Anti-Virus</div><div class="item-desc">Apple & Orange</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>370</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Blood Cleanser</div><div class="item-desc">Apple, Beet & Celery</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>370</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Flush</div><div class="item-desc">Cucumber, Celery & Lime juice</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>370</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Highflyer</div><div class="item-desc">Cucumber, Spinach & Carrot</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>370</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Glow</div><div class="item-desc">Orange and Dragon fruit</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>370</div></div></div>
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- FRESH JUICE -->
-  <div class="cat-header" id="drinks-fresh-juice">
-    <div class="cat-name">Fresh Juice</div>
-    <div class="cat-rule"></div>
-  </div>
-  <div class="items-card">
-    <div class="item"><div class="item-left"><div class="item-name">Pineapple</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>350</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Watermelon</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>350</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Orange</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>390</div></div></div>
-  </div>
-
-  <div class="section-gap"></div>
-
-  <!-- HOUSE WATER -->
-  <div class="cat-header" id="drinks-house-water">
-    <div class="cat-name">House Water</div>
-    <div class="cat-rule"></div>
-  </div>
-  <div class="items-card">
-    <div class="item"><div class="item-left"><div class="item-name">Still</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>350</div></div></div>
-    <div class="item"><div class="item-left"><div class="item-name">Sparkling</div></div><div class="item-right"><div class="item-price"><span class="rupee">₹</span>450</div></div></div>
-  </div>
-
-  <div class="bottom-space"></div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════════ -->
-<!--                  INFO SECTION                   -->
-<!-- ═══════════════════════════════════════════════ -->
-<section class="menu-section" id="section-info">
-  <div style="padding: 24px 20px;">
-
-    <div style="background: var(--white); border-radius: 8px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 16px;">
-      <div style="background: var(--terracotta); padding: 16px 20px;">
-        <div style="font-family: 'Cormorant Garamond', serif; font-size: 22px; color: white; font-weight: 400;">Visit Us</div>
-      </div>
-      <div style="padding: 20px; font-size: 13.5px; color: var(--ink-soft); line-height: 2.2;">
-        <div>📍 18/1400-1, Vikraman Hills, Kuravankonam</div>
-        <div>Kowdiar P.O., Thiruvananthapuram – 695003</div>
-        <div style="margin-top: 8px;">🕐 Open Daily: 11:00 AM to 11:00 PM</div>
-        <div style="margin-top: 8px;">📞 +91 0471 4617709 / 10 / 11 / 12</div>
-        <div>📱 Reservations: +91 8714642900</div>
-        <div style="margin-top: 8px;">✉️ reservations@bakersarch.in</div>
-        <div style="margin-top: 8px;">🌐 bakersarch.in</div>
-        <div>📸 @bakersarchcafe</div>
-      </div>
-    </div>
-
-
-
-
-
-    <div style="background: var(--white); border-radius: 8px; border: 1px solid var(--border); padding: 20px; margin-bottom: 16px;">
-      <div style="font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--ink); font-weight: 400; margin-bottom: 12px;">Allergen Information</div>
-      <div style="font-size: 12.5px; color: var(--muted); line-height: 1.9;">
-        <p>Please speak to our associate in case of any dietary requirements or specific food allergens.</p>
-        <p style="margin-top: 8px;">⚠️ Taxes extra as applicable.</p>
-        <p style="margin-top: 4px;">We use only <strong>refined vegetable oil</strong> for all cooking.</p>
-        <p style="margin-top: 8px;"><strong>Contains allergens:</strong> Nuts · Shellfish · Gluten · Egg · Dairy</p>
-      </div>
-    </div>
-
-    <div style="background: var(--terracotta-pale); border-radius: 8px; border: 1px solid rgba(181,69,27,0.2); padding: 20px; margin-bottom: 16px;">
-      <div style="font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; color: var(--terracotta); margin-bottom: 10px;">"Created with passion and served with love. Food unites people."</div>
-      <div style="font-size: 12px; color: var(--muted);">REVE Luxury Awards 2025 Winner &nbsp;·&nbsp; Muthoot Pappachan Group</div>
-    </div>
-
-  </div>
-  <div class="bottom-space"></div>
-</section>
-
-
-<!-- ALLERGEN FOOTER -->
-<div class="allergen-footer">
-  <strong>Veg</strong> · <strong>Non-Veg</strong> · <strong>Vegan</strong> · <strong>Healthy</strong> · <strong>Signature</strong> · <strong>Spicy</strong><br>
-  Nuts · Shellfish · Gluten · Egg · Dairy<br>
-  Please speak to our associate for dietary requirements & allergen information.<br>
-  *Taxes extra as applicable. We use only refined vegetable oil for cooking.
-</div>
-
-<!-- BACK COVER SNIPPET -->
-<div class="back-cover">
-  <p>"Architecture is not about form or function alone — it is about the people for whom it is made."<br><em style="font-size:13px;">— Laurie Baker</em></p>
-  <div class="contact-line">18/1400-1 Vikraman Hills · Kowdiar · Trivandrum – 695003</div>
-  <div class="social">@bakersarchcafe &nbsp;·&nbsp; bakersarch.in</div>
-</div>
-
-<!-- SCROLL TO TOP -->
-<button class="scroll-top" id="scrollBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-
-<script>
-const signatureIconMarkup = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10.5A3.5 3.5 0 0 1 10.5 7a4.4 4.4 0 0 1 1.5.27A4.5 4.5 0 0 1 20 10a3 3 0 0 1-1 5.83V18a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-2.17A3 3 0 0 1 7 10.5Zm2 5.5V18h8v-2Zm0-2h8a1 1 0 0 0 0-2h-.46l-.74-.02.14-.72A2.5 2.5 0 0 0 13.5 8a2.7 2.7 0 0 0-1.43.41l-.48.3-.48-.3A2.4 2.4 0 0 0 10.5 8 2.5 2.5 0 0 0 8 10.5l.06.53.08.75L7.39 12a1 1 0 0 0 .61 2Z"/></svg>';
-// ═══ TAB NAVIGATION ═══
-function syncActiveMenus(id) {
-  document.querySelectorAll('.nav-btn').forEach(btn => {
-    const isActive = btn.textContent.trim().toLowerCase() === id;
-    btn.classList.toggle('active', isActive);
-  });
-
-  document.querySelectorAll('.mobile-menu-item').forEach(item => {
-    item.classList.toggle('active', item.dataset.section === id);
-  });
-}
-
-function setFoodSubmenuOpen(isOpen) {
-  const submenu = document.getElementById('foodSubmenu');
-  const toggle = document.getElementById('foodMenuToggle');
-  if (!submenu || !toggle) return;
-
-  submenu.classList.toggle('open', isOpen);
-  toggle.classList.toggle('expanded', isOpen);
-  toggle.setAttribute('aria-expanded', String(isOpen));
-}
-
-function setCoffeeSubmenuOpen(isOpen) {
-  const submenu = document.getElementById('coffeeSubmenu');
-  const toggle = document.getElementById('coffeeMenuToggle');
-  if (!submenu || !toggle) return;
-
-  submenu.classList.toggle('open', isOpen);
-  toggle.classList.toggle('expanded', isOpen);
-  toggle.setAttribute('aria-expanded', String(isOpen));
-}
-
-function setDrinksSubmenuOpen(isOpen) {
-  const submenu = document.getElementById('drinksSubmenu');
-  const toggle = document.getElementById('drinksMenuToggle');
-  if (!submenu || !toggle) return;
-
-  submenu.classList.toggle('open', isOpen);
-  toggle.classList.toggle('expanded', isOpen);
-  toggle.setAttribute('aria-expanded', String(isOpen));
-}
-
-function showSection(id, btn, options = {}) {
-  const { closeMenu = true, scrollToTop = true } = options;
-  document.querySelectorAll('.menu-section').forEach(section => section.classList.remove('active'));
-  document.getElementById('section-' + id).classList.add('active');
-  syncActiveMenus(id);
-  if (btn) btn.classList.add('active');
-  if (closeMenu) closeMobileMenu();
-  if (scrollToTop) window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function toggleFoodSubmenu(event) {
-  if (event) event.stopPropagation();
-  const submenu = document.getElementById('foodSubmenu');
-  const willOpen = !submenu.classList.contains('open');
-
-  showSection('food', null, { closeMenu: false, scrollToTop: false });
-  setCoffeeSubmenuOpen(false);
-  setDrinksSubmenuOpen(false);
-  setFoodSubmenuOpen(willOpen);
-}
-
-function showFoodSubsection(targetId) {
-  showSection('food', null, { closeMenu: true, scrollToTop: false });
-  requestAnimationFrame(() => {
-    const target = document.getElementById(targetId);
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-}
-
-function toggleCoffeeSubmenu(event) {
-  if (event) event.stopPropagation();
-  const submenu = document.getElementById('coffeeSubmenu');
-  const willOpen = !submenu.classList.contains('open');
-
-  showSection('coffee', null, { closeMenu: false, scrollToTop: false });
-  setFoodSubmenuOpen(false);
-  setDrinksSubmenuOpen(false);
-  setCoffeeSubmenuOpen(willOpen);
-}
-
-function showCoffeeSubsection(targetId) {
-  showSection('coffee', null, { closeMenu: true, scrollToTop: false });
-  requestAnimationFrame(() => {
-    const target = document.getElementById(targetId);
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-}
-
-function toggleDrinksSubmenu(event) {
-  if (event) event.stopPropagation();
-  const submenu = document.getElementById('drinksSubmenu');
-  const willOpen = !submenu.classList.contains('open');
-
-  showSection('drinks', null, { closeMenu: false, scrollToTop: false });
-  setFoodSubmenuOpen(false);
-  setCoffeeSubmenuOpen(false);
-  setDrinksSubmenuOpen(willOpen);
-}
-
-function showDrinksSubsection(targetId) {
-  showSection('drinks', null, { closeMenu: true, scrollToTop: false });
-  requestAnimationFrame(() => {
-    const target = document.getElementById(targetId);
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-}
-
-function toggleMobileMenu() {
-  const sheet = document.getElementById('mobileMenuSheet');
-  const backdrop = document.getElementById('mobileMenuBackdrop');
-  const fab = document.getElementById('mobileMenuFab');
-  const willOpen = !sheet.classList.contains('open');
-
-  sheet.classList.toggle('open', willOpen);
-  backdrop.classList.toggle('open', willOpen);
-  fab.setAttribute('aria-expanded', String(willOpen));
-  if (!willOpen) {
-    setFoodSubmenuOpen(false);
-    setCoffeeSubmenuOpen(false);
-    setDrinksSubmenuOpen(false);
-  }
-}
-
-function closeMobileMenu() {
-  const sheet = document.getElementById('mobileMenuSheet');
-  const backdrop = document.getElementById('mobileMenuBackdrop');
-  const fab = document.getElementById('mobileMenuFab');
-  if (!sheet || !backdrop || !fab) return;
-
-  sheet.classList.remove('open');
-  backdrop.classList.remove('open');
-  fab.setAttribute('aria-expanded', 'false');
-  setFoodSubmenuOpen(false);
-  setCoffeeSubmenuOpen(false);
-  setDrinksSubmenuOpen(false);
-}
-
-function buildMenuIcon(tagClass, label) {
-  const icon = document.createElement('span');
-  icon.className = 'menu-icon';
-  icon.setAttribute('aria-label', label);
-  icon.setAttribute('title', label);
-
-  switch (tagClass) {
-    case 'tag-vegan':
-      icon.classList.add('menu-icon--vegan');
-      icon.innerHTML = '<i class="bi bi-check-square"></i>';
-      break;
-    case 'tag-veg':
-      icon.classList.add('menu-icon--veg');
-      break;
-    case 'tag-nonveg':
-      icon.classList.add('menu-icon--nonveg');
-      break;
-    case 'tag-health':
-      icon.classList.add('menu-icon--healthy');
-      icon.innerHTML = '<i class="fa-solid fa-heart"></i>';
-      break;
-    case 'tag-sig':
-      icon.classList.add('menu-icon--signature');
-      icon.innerHTML = signatureIconMarkup;
-      break;
-    case 'tag-spicy':
-      icon.classList.add('menu-icon--spicy');
-      icon.innerHTML = '&#127798;';
-      break;
-    case 'tag-gf':
-      icon.classList.add('menu-icon--gluten');
-      icon.innerHTML = '&#127806;';
-      break;
-    case 'tag-egg':
-      icon.classList.add('menu-icon--egg');
-      icon.innerHTML = '<i class="fa-solid fa-egg"></i>';
-      break;
-    default:
-      icon.textContent = label;
-  }
-
-  return icon;
-}
-
-function renderMenuIcons() {
-  document.querySelectorAll('.item .item-left').forEach((itemLeft) => {
-    const itemName = itemLeft.querySelector('.item-name');
-    const tags = itemLeft.querySelector('.tags');
-
-    if (!itemName || !tags || itemLeft.querySelector('.item-icons')) return;
-
-    let nameRow = itemLeft.querySelector('.item-name-row');
-    if (!nameRow) {
-      nameRow = document.createElement('div');
-      nameRow.className = 'item-name-row';
-      itemLeft.insertBefore(nameRow, itemName);
-      nameRow.appendChild(itemName);
+  <!-- SCROLL TO TOP -->
+  <button class="scroll-top" id="scrollBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+  <script>
+    const signatureIconMarkup = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10.5A3.5 3.5 0 0 1 10.5 7a4.4 4.4 0 0 1 1.5.27A4.5 4.5 0 0 1 20 10a3 3 0 0 1-1 5.83V18a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-2.17A3 3 0 0 1 7 10.5Zm2 5.5V18h8v-2Zm0-2h8a1 1 0 0 0 0-2h-.46l-.74-.02.14-.72A2.5 2.5 0 0 0 13.5 8a2.7 2.7 0 0 0-1.43.41l-.48.3-.48-.3A2.4 2.4 0 0 0 10.5 8 2.5 2.5 0 0 0 8 10.5l.06.53.08.75L7.39 12a1 1 0 0 0 .61 2Z"/></svg>';
+    // ═══ TAB NAVIGATION ═══
+    function syncActiveMenus(id) {
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        const isActive = btn.textContent.trim().toLowerCase() === id;
+        btn.classList.toggle('active', isActive);
+      });
+
+      document.querySelectorAll('.mobile-menu-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.section === id);
+      });
     }
 
-    const leadingIconWrap = document.createElement('span');
-    leadingIconWrap.className = 'item-name-leading-icons';
-    const iconWrap = document.createElement('span');
-    iconWrap.className = 'item-icons';
+    function setFoodSubmenuOpen(isOpen) {
+      const submenu = document.getElementById('foodSubmenu');
+      const toggle = document.getElementById('foodMenuToggle');
+      if (!submenu || !toggle) return;
 
-    tags.querySelectorAll('.tag').forEach((tag) => {
-      const label = tag.textContent.trim();
-      const tagClass = Array.from(tag.classList).find((className) => className.startsWith('tag-') && className !== 'tag');
+      submenu.classList.toggle('open', isOpen);
+      toggle.classList.toggle('expanded', isOpen);
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    }
 
-      if (!tagClass) return;
+    function setCoffeeSubmenuOpen(isOpen) {
+      const submenu = document.getElementById('coffeeSubmenu');
+      const toggle = document.getElementById('coffeeMenuToggle');
+      if (!submenu || !toggle) return;
 
-      const isLeadingIcon = tagClass === 'tag-veg' || tagClass === 'tag-nonveg' 
-  
-      || tagClass === 'tag-health' 
-      || tagClass === 'tag-sig' 
-      || tagClass === 'tag-spicy' 
-      || tagClass === 'tag-shellfish';
+      submenu.classList.toggle('open', isOpen);
+      toggle.classList.toggle('expanded', isOpen);
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    }
 
+    function setDrinksSubmenuOpen(isOpen) {
+      const submenu = document.getElementById('drinksSubmenu');
+      const toggle = document.getElementById('drinksMenuToggle');
+      if (!submenu || !toggle) return;
 
+      submenu.classList.toggle('open', isOpen);
+      toggle.classList.toggle('expanded', isOpen);
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    }
 
+    function showSection(id, btn, options = {}) {
+      const { closeMenu = true, scrollToTop = true } = options;
+      document.querySelectorAll('.menu-section').forEach(section => section.classList.remove('active'));
+      document.getElementById('section-' + id).classList.add('active');
+      syncActiveMenus(id);
+      if (btn) btn.classList.add('active');
+      if (closeMenu) closeMobileMenu();
+      if (scrollToTop) window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
+    function toggleFoodSubmenu(event) {
+      if (event) event.stopPropagation();
+      const submenu = document.getElementById('foodSubmenu');
+      const willOpen = !submenu.classList.contains('open');
 
+      showSection('food', null, { closeMenu: false, scrollToTop: false });
+      setCoffeeSubmenuOpen(false);
+      setDrinksSubmenuOpen(false);
+      setFoodSubmenuOpen(willOpen);
+    }
 
+    function showFoodSubsection(targetId) {
+      showSection('food', null, { closeMenu: true, scrollToTop: false });
+      requestAnimationFrame(() => {
+        const target = document.getElementById(targetId);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
 
-      if (tagClass === 'tag-time') {
-        const time = document.createElement('span');
-        time.className = 'item-time-inline';
-        time.textContent = '(' + label.replace(/–/g, ' to ').replace(/-/g, ' to ') + ')';
-        iconWrap.appendChild(time);
-        return;
+    function toggleCoffeeSubmenu(event) {
+      if (event) event.stopPropagation();
+      const submenu = document.getElementById('coffeeSubmenu');
+      const willOpen = !submenu.classList.contains('open');
+
+      showSection('coffee', null, { closeMenu: false, scrollToTop: false });
+      setFoodSubmenuOpen(false);
+      setDrinksSubmenuOpen(false);
+      setCoffeeSubmenuOpen(willOpen);
+    }
+
+    function showCoffeeSubsection(targetId) {
+      showSection('coffee', null, { closeMenu: true, scrollToTop: false });
+      requestAnimationFrame(() => {
+        const target = document.getElementById(targetId);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    function toggleDrinksSubmenu(event) {
+      if (event) event.stopPropagation();
+      const submenu = document.getElementById('drinksSubmenu');
+      const willOpen = !submenu.classList.contains('open');
+
+      showSection('drinks', null, { closeMenu: false, scrollToTop: false });
+      setFoodSubmenuOpen(false);
+      setCoffeeSubmenuOpen(false);
+      setDrinksSubmenuOpen(willOpen);
+    }
+
+    function showDrinksSubsection(targetId) {
+      showSection('drinks', null, { closeMenu: true, scrollToTop: false });
+      requestAnimationFrame(() => {
+        const target = document.getElementById(targetId);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    function toggleMobileMenu() {
+      const sheet = document.getElementById('mobileMenuSheet');
+      const backdrop = document.getElementById('mobileMenuBackdrop');
+      const fab = document.getElementById('mobileMenuFab');
+      const willOpen = !sheet.classList.contains('open');
+
+      sheet.classList.toggle('open', willOpen);
+      backdrop.classList.toggle('open', willOpen);
+      fab.setAttribute('aria-expanded', String(willOpen));
+      if (!willOpen) {
+        setFoodSubmenuOpen(false);
+        setCoffeeSubmenuOpen(false);
+        setDrinksSubmenuOpen(false);
+      }
+    }
+
+    function closeMobileMenu() {
+      const sheet = document.getElementById('mobileMenuSheet');
+      const backdrop = document.getElementById('mobileMenuBackdrop');
+      const fab = document.getElementById('mobileMenuFab');
+      if (!sheet || !backdrop || !fab) return;
+
+      sheet.classList.remove('open');
+      backdrop.classList.remove('open');
+      fab.setAttribute('aria-expanded', 'false');
+      setFoodSubmenuOpen(false);
+      setCoffeeSubmenuOpen(false);
+      setDrinksSubmenuOpen(false);
+    }
+
+    function buildMenuIcon(tagClass, label) {
+      const icon = document.createElement('span');
+      icon.className = 'menu-icon';
+      icon.setAttribute('aria-label', label);
+      icon.setAttribute('title', label);
+
+      switch (tagClass) {
+        case 'tag-vegan':
+          icon.classList.add('menu-icon--vegan');
+          icon.innerHTML = '<i class="bi bi-check-square"></i>';
+          break;
+        case 'tag-veg':
+          icon.classList.add('menu-icon--veg');
+          break;
+        case 'tag-nonveg':
+          icon.classList.add('menu-icon--nonveg');
+          break;
+        case 'tag-health':
+          icon.classList.add('menu-icon--healthy');
+          icon.innerHTML = '<i class="fa-solid fa-heart"></i>';
+          break;
+        case 'tag-sig':
+          icon.classList.add('menu-icon--signature');
+          icon.innerHTML = signatureIconMarkup;
+          break;
+        case 'tag-spicy':
+          icon.classList.add('menu-icon--spicy');
+          icon.innerHTML = '&#127798;';
+          break;
+        case 'tag-mspicy':
+          icon.classList.add('menu-icon--more-spicy');
+          icon.innerHTML = '&#127798;&#127798;';
+          break;
+        case 'tag-nuts':
+          icon.classList.add('menu-icon--nuts');
+          icon.innerHTML = '&#129372;';
+          break;
+        case 'tag-shellfish':
+          icon.classList.add('menu-icon--shellfish');
+          icon.innerHTML = '&#129424;';
+          break;
+        case 'tag-gf':
+          icon.classList.add('menu-icon--gluten');
+          icon.innerHTML = '&#127806;';
+          break;
+        case 'tag-egg':
+          icon.classList.add('menu-icon--egg');
+          icon.innerHTML = '<i class="fa-solid fa-egg"></i>';
+          break;
+        case 'tag-dairy':
+          icon.classList.add('menu-icon--dairy');
+          icon.innerHTML = '&#129371;';
+          break;
+        default:
+          icon.textContent = label;
       }
 
-      const icon = buildMenuIcon(tagClass, label);
-      if (isLeadingIcon) {
-        leadingIconWrap.appendChild(icon);
-      } else {
-        iconWrap.appendChild(icon);
+      return icon;
+    }
+
+    function renderMenuIcons() {
+      document.querySelectorAll('.item .item-left').forEach((itemLeft) => {
+        const itemName = itemLeft.querySelector('.item-name');
+        const tags = itemLeft.querySelector('.tags');
+
+        if (!itemName || !tags || itemLeft.querySelector('.item-icons')) return;
+
+        let nameRow = itemLeft.querySelector('.item-name-row');
+        if (!nameRow) {
+          nameRow = document.createElement('div');
+          nameRow.className = 'item-name-row';
+          itemLeft.insertBefore(nameRow, itemName);
+          nameRow.appendChild(itemName);
+        }
+
+        const leadingIconWrap = document.createElement('span');
+        leadingIconWrap.className = 'item-name-leading-icons';
+        const iconWrap = document.createElement('span');
+        iconWrap.className = 'item-icons';
+
+        tags.querySelectorAll('.tag').forEach((tag) => {
+          const label = tag.textContent.trim();
+          const tagClass = Array.from(tag.classList).find((className) => className.startsWith('tag-') && className !== 'tag');
+
+          if (!tagClass) return;
+
+          const isLeadingIcon = tagClass === 'tag-veg' || tagClass === 'tag-nonveg'
+
+            || tagClass === 'tag-health'
+            || tagClass === 'tag-sig'
+            || tagClass === 'tag-spicy'
+
+
+
+          if (tagClass === 'tag-time') {
+            const time = document.createElement('span');
+            time.className = 'item-time-inline';
+            time.textContent = '(' + label.replace(/–/g, ' to ').replace(/-/g, ' to ') + ')';
+            iconWrap.appendChild(time);
+            return;
+          }
+
+          const icon = buildMenuIcon(tagClass, label);
+          if (isLeadingIcon) {
+            leadingIconWrap.appendChild(icon);
+          } else {
+            iconWrap.appendChild(icon);
+          }
+        });
+
+        if (leadingIconWrap.childNodes.length) {
+          nameRow.insertBefore(leadingIconWrap, itemName);
+        }
+        if (iconWrap.childNodes.length) {
+          nameRow.appendChild(iconWrap);
+        }
+        if (leadingIconWrap.childNodes.length || iconWrap.childNodes.length) {
+          tags.classList.add('tags--converted');
+        }
+      });
+    }
+
+    function renderFooterLegend() {
+      const footer = document.querySelector('.allergen-footer');
+      if (!footer) return;
+
+      footer.innerHTML = [
+        '<div class="legend-copy">',
+        '<span class="legend-item"><span class="menu-icon menu-icon--vegan" aria-hidden="true"><i class="bi bi-check-square"></i></span>Vegan</span>',
+        '<span class="legend-item"><span class="menu-icon menu-icon--veg" aria-hidden="true"></span>Veg</span>',
+        '<span class="legend-item"><span class="menu-icon menu-icon--nonveg" aria-hidden="true"></span>Non-Veg</span>',
+        '<span class="legend-item"><span class="menu-icon menu-icon--healthy" aria-hidden="true"><i class="fa-solid fa-heart"></i></span>Healthy Option</span>',
+        '<span class="legend-item"><span class="menu-icon menu-icon--signature" aria-hidden="true">' + signatureIconMarkup + '</span>Signature</span>',
+        '<span class="legend-item"><span class="menu-icon menu-icon--spicy" aria-hidden="true">&#127798;</span>Spicy</span>',
+        '<span class="legend-item"><span class="menu-icon menu-icon--more-spicy" aria-hidden="true">&#127798;&#127798;</span>More Spicy</span>',
+        '<span class="legend-item"><span class="menu-icon menu-icon--nuts" aria-hidden="true">&#129372;</span>Nuts</span>',
+        '<span class="legend-item"><span class="menu-icon menu-icon--shellfish" aria-hidden="true">&#129424;</span>Shellfish</span>',
+        '<span class="legend-item"><span class="menu-icon menu-icon--gluten" aria-hidden="true">&#127806;</span>Gluten</span>',
+        '<span class="legend-item"><span class="menu-icon menu-icon--egg" aria-hidden="true"><i class="fa-solid fa-egg"></i></span>Egg</span>',
+        '<span class="legend-item"><span class="menu-icon menu-icon--dairy" aria-hidden="true">&#129371;</span>Dairy</span>',
+        '</div>',
+        '<div class="footer-note">Please speak to our associate for dietary requirements &amp; allergen information.</div>',
+        '<div>*Taxes extra as applicable. We use only refined vegetable oil for cooking.</div>'
+      ].join('');
+    }
+
+    // ═══ COVER INFO TOGGLE ═══
+    function toggleCoverInfo() {
+      const toggle = document.getElementById('coverInfoToggle');
+      const dropdown = document.getElementById('coverInfoDropdown');
+      const isOpen = dropdown.classList.contains('open');
+
+      dropdown.classList.toggle('open', !isOpen);
+      toggle.classList.toggle('expanded', !isOpen);
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+    }
+
+    // Close cover info dropdown when clicking outside
+    document.addEventListener('click', function (event) {
+      const toggle = document.getElementById('coverInfoToggle');
+      const dropdown = document.getElementById('coverInfoDropdown');
+      if (dropdown && dropdown.classList.contains('open')) {
+        if (!toggle.contains(event.target) && !dropdown.contains(event.target)) {
+          toggleCoverInfo();
+        }
       }
     });
 
-    if (leadingIconWrap.childNodes.length) {
-      nameRow.insertBefore(leadingIconWrap, itemName);
-    }
-    if (iconWrap.childNodes.length) {
-      nameRow.appendChild(iconWrap);
-    }
-    if (leadingIconWrap.childNodes.length || iconWrap.childNodes.length) {
-      tags.classList.add('tags--converted');
-    }
-  });
-}
+    // ═══ SCROLL TO TOP BUTTON ═══
+    window.addEventListener('scroll', function () {
+      const btn = document.getElementById('scrollBtn');
+      if (window.scrollY > 300) btn.classList.add('visible');
+      else btn.classList.remove('visible');
+    });
 
-function renderFooterLegend() {
-  const footer = document.querySelector('.allergen-footer');
-  if (!footer) return;
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') closeMobileMenu();
+    });
 
-  footer.innerHTML = [
-    '<div class="legend-copy">',
-    '<span class="legend-item"><span class="menu-icon menu-icon--vegan" aria-hidden="true"><i class="bi bi-check-square"></i></span>Vegan</span>',
-    '<span class="legend-item"><span class="menu-icon menu-icon--veg" aria-hidden="true"></span>Veg</span>',
-    '<span class="legend-item"><span class="menu-icon menu-icon--nonveg" aria-hidden="true"></span>Non-Veg</span>',
-    '<span class="legend-item"><span class="menu-icon menu-icon--healthy" aria-hidden="true"><i class="fa-solid fa-heart"></i></span>Healthy Option</span>',
-    '<span class="legend-item"><span class="menu-icon menu-icon--signature" aria-hidden="true">' + signatureIconMarkup + '</span>Signature</span>',
-    '<span class="legend-item"><span class="menu-icon menu-icon--spicy" aria-hidden="true">&#127798;</span>Spicy</span>',
-    '<span class="legend-item"><span class="menu-icon menu-icon--more-spicy" aria-hidden="true">&#127798;&#127798;</span>More Spicy</span>',
-    '<span class="legend-item"><span class="menu-icon menu-icon--nuts" aria-hidden="true">&#129372;</span>Nuts</span>',
-    '<span class="legend-item"><span class="menu-icon menu-icon--shellfish" aria-hidden="true">&#129424;</span>Shellfish</span>',
-    '<span class="legend-item"><span class="menu-icon menu-icon--gluten" aria-hidden="true">&#127806;</span>Gluten</span>',
-    '<span class="legend-item"><span class="menu-icon menu-icon--egg" aria-hidden="true"><i class="fa-solid fa-egg"></i></span>Egg</span>',
-    '<span class="legend-item"><span class="menu-icon menu-icon--dairy" aria-hidden="true">&#129371;</span>Dairy</span>',
-    '</div>',
-    '<div class="footer-note">Please speak to our associate for dietary requirements &amp; allergen information.</div>',
-    '<div>*Taxes extra as applicable. We use only refined vegetable oil for cooking.</div>'
-  ].join('');
-}
-
-// ═══ COVER INFO TOGGLE ═══
-function toggleCoverInfo() {
-  const toggle = document.getElementById('coverInfoToggle');
-  const dropdown = document.getElementById('coverInfoDropdown');
-  const isOpen = dropdown.classList.contains('open');
-
-  dropdown.classList.toggle('open', !isOpen);
-  toggle.classList.toggle('expanded', !isOpen);
-  toggle.setAttribute('aria-expanded', String(!isOpen));
-}
-
-// Close cover info dropdown when clicking outside
-document.addEventListener('click', function(event) {
-  const toggle = document.getElementById('coverInfoToggle');
-  const dropdown = document.getElementById('coverInfoDropdown');
-  if (dropdown && dropdown.classList.contains('open')) {
-    if (!toggle.contains(event.target) && !dropdown.contains(event.target)) {
-      toggleCoverInfo();
-    }
-  }
-});
-
-// ═══ SCROLL TO TOP BUTTON ═══
-window.addEventListener('scroll', function() {
-  const btn = document.getElementById('scrollBtn');
-  if (window.scrollY > 300) btn.classList.add('visible');
-  else btn.classList.remove('visible');
-});
-
-document.addEventListener('keydown', function(event) {
-  if (event.key === 'Escape') closeMobileMenu();
-});
-
-renderMenuIcons();
-renderFooterLegend();
-</script>
+    renderMenuIcons();
+    renderFooterLegend();
+  </script>
 </body>
+
 </html>
