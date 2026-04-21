@@ -6,6 +6,7 @@
 <title>Baker's Arch — Menu</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
 <style>
 /* ═══════════════ TOKENS ═══════════════ */
 :root {
@@ -194,8 +195,60 @@ body {
 }
 .legend-title { font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; width: 100%; }
 .legend-item { display: flex; align-items: center; gap: 5px; color: var(--ink-soft); }
-.leg-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-.leg-sq { width: 9px; height: 9px; border-radius: 1px; flex-shrink: 0; }
+.menu-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  font-size: 12px;
+  line-height: 1;
+}
+.menu-icon i {
+  font-size: 12px;
+  line-height: 1;
+}
+.menu-icon svg {
+  width: 12px;
+  height: 12px;
+  display: block;
+  fill: currentColor;
+}
+.menu-icon--veg,
+.menu-icon--nonveg {
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  position: relative;
+}
+.menu-icon--veg { border: 1px solid #2E7D32; }
+.menu-icon--nonveg { border: 1px solid #C62828; }
+.menu-icon--veg::before,
+.menu-icon--nonveg::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+}
+.menu-icon--veg::before { background: #2E7D32; }
+.menu-icon--nonveg::before { background: #C62828; }
+.menu-icon--vegan { color: #7D8B32; }
+.menu-icon--healthy { color: #AD1457; }
+.menu-icon--signature { color: #B5451B; }
+.menu-icon--spicy,
+.menu-icon--more-spicy { color: #C34A1D; }
+.menu-icon--nuts { color: #5D4037; }
+.menu-icon--shellfish { color: #A35A36; }
+.menu-icon--gluten { color: #3C2F25; }
+.menu-icon--egg { color: #D4AF37; }
+.menu-icon--dairy { color: #8C6A3C; }
+.legend-copy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  align-items: center;
+}
 
 /* ═══════════════ STICKY NAV ═══════════════ */
 .sticky-nav {
@@ -459,6 +512,7 @@ body {
 
 /* ═══════════════ DIET TAGS ═══════════════ */
 .tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 5px; }
+.tags--converted { display: none; }
 .tag {
   display: inline-flex; align-items: center; gap: 3px;
   font-size: 9px; font-weight: 500; letter-spacing: 0.8px;
@@ -472,6 +526,18 @@ body {
 .tag-health { background: rgba(233,30,99,0.08); color: var(--tag-healthy); border: 1px solid rgba(233,30,99,0.2); }
 .tag-gf { background: rgba(0,150,136,0.08); color: #00695C; border: 1px solid rgba(0,150,136,0.2); }
 .tag-time { background: rgba(100,100,100,0.08); color: #555; border: 1px solid rgba(100,100,100,0.2); }
+.item-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 1px;
+}
+.item-time-inline {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.2px;
+}
 
 /* ═══════════════ CARD / SECTION BG ═══════════════ */
 .items-card {
@@ -527,6 +593,13 @@ body {
   text-align: center; line-height: 1.8;
 }
 .allergen-footer strong { color: var(--ink-soft); }
+.allergen-footer .legend-copy {
+  justify-content: center;
+  margin-bottom: 2px;
+}
+.allergen-footer .footer-note {
+  margin-top: 6px;
+}
 
 /* ═══════════════ BOTTOM SPACING ═══════════════ */
 .bottom-space { height: 60px; }
@@ -657,13 +730,20 @@ body {
 <!-- LEGEND -->
 <div class="legend">
   <div class="legend-title">Key</div>
-  <div class="legend-item"><span class="leg-dot" style="background:#2E7D32;"></span>Veg</div>
-  <div class="legend-item"><span class="leg-dot" style="background:#C62828;"></span>Non-Veg</div>
-  <div class="legend-item"><span class="leg-dot" style="background:#1B5E20;"></span>Vegan</div>
-  <div class="legend-item"><span class="leg-dot" style="background:#E91E63;"></span>Healthy</div>
-  <div class="legend-item"><span class="leg-dot" style="background:#B5451B;"></span>Signature</div>
-  <div class="legend-item"><span class="leg-dot" style="background:#FF5722;"></span>Spicy</div>
-  <div class="legend-item"><span class="leg-dot" style="background:#00695C;"></span>Gluten Free</div>
+  <div class="legend-copy">
+    <div class="legend-item"><span class="menu-icon menu-icon--vegan" aria-hidden="true"><i class="bi bi-check-square"></i></span>Vegan</div>
+    <div class="legend-item"><span class="menu-icon menu-icon--veg" aria-hidden="true"></span>Veg</div>
+    <div class="legend-item"><span class="menu-icon menu-icon--nonveg" aria-hidden="true"></span>Non-Veg</div>
+    <div class="legend-item"><span class="menu-icon menu-icon--healthy" aria-hidden="true"><i class="fa-solid fa-heart"></i></span>Healthy Option</div>
+    <div class="legend-item"><span class="menu-icon menu-icon--signature" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 10.5A3.5 3.5 0 0 1 10.5 7a4.4 4.4 0 0 1 1.5.27A4.5 4.5 0 0 1 20 10a3 3 0 0 1-1 5.83V18a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-2.17A3 3 0 0 1 7 10.5Zm2 5.5V18h8v-2Zm0-2h8a1 1 0 0 0 0-2h-.46l-.74-.02.14-.72A2.5 2.5 0 0 0 13.5 8a2.7 2.7 0 0 0-1.43.41l-.48.3-.48-.3A2.4 2.4 0 0 0 10.5 8 2.5 2.5 0 0 0 8 10.5l.06.53.08.75L7.39 12a1 1 0 0 0 .61 2Z"/></svg></span>Signature</div>
+    <div class="legend-item"><span class="menu-icon menu-icon--spicy" aria-hidden="true">&#127798;</span>Spicy</div>
+    <div class="legend-item"><span class="menu-icon menu-icon--more-spicy" aria-hidden="true">&#127798;&#127798;</span>More Spicy</div>
+    <div class="legend-item"><span class="menu-icon menu-icon--nuts" aria-hidden="true">&#129372;</span>Nuts</div>
+    <div class="legend-item"><span class="menu-icon menu-icon--shellfish" aria-hidden="true">&#129424;</span>Shellfish</div>
+    <div class="legend-item"><span class="menu-icon menu-icon--gluten" aria-hidden="true">&#127806;</span>Gluten</div>
+    <div class="legend-item"><span class="menu-icon menu-icon--egg" aria-hidden="true"><i class="fa-solid fa-egg"></i></span>Egg</div>
+    <div class="legend-item"><span class="menu-icon menu-icon--dairy" aria-hidden="true">&#129371;</span>Dairy</div>
+  </div>
 </div>
 
 <!-- STICKY NAV -->
@@ -1716,6 +1796,7 @@ body {
 <button class="scroll-top" id="scrollBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script>
+const signatureIconMarkup = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 10.5A3.5 3.5 0 0 1 10.5 7a4.4 4.4 0 0 1 1.5.27A4.5 4.5 0 0 1 20 10a3 3 0 0 1-1 5.83V18a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-2.17A3 3 0 0 1 7 10.5Zm2 5.5V18h8v-2Zm0-2h8a1 1 0 0 0 0-2h-.46l-.74-.02.14-.72A2.5 2.5 0 0 0 13.5 8a2.7 2.7 0 0 0-1.43.41l-.48.3-.48-.3A2.4 2.4 0 0 0 10.5 8 2.5 2.5 0 0 0 8 10.5l.06.53.08.75L7.39 12a1 1 0 0 0 .61 2Z"/></svg>';
 // ═══ TAB NAVIGATION ═══
 function syncActiveMenus(id) {
   document.querySelectorAll('.nav-btn').forEach(btn => {
@@ -1855,6 +1936,116 @@ function closeMobileMenu() {
   setDrinksSubmenuOpen(false);
 }
 
+function buildMenuIcon(tagClass, label) {
+  const icon = document.createElement('span');
+  icon.className = 'menu-icon';
+  icon.setAttribute('aria-label', label);
+  icon.setAttribute('title', label);
+
+  switch (tagClass) {
+    case 'tag-vegan':
+      icon.classList.add('menu-icon--vegan');
+      icon.innerHTML = '<i class="bi bi-check-square"></i>';
+      break;
+    case 'tag-veg':
+      icon.classList.add('menu-icon--veg');
+      break;
+    case 'tag-nonveg':
+      icon.classList.add('menu-icon--nonveg');
+      break;
+    case 'tag-health':
+      icon.classList.add('menu-icon--healthy');
+      icon.innerHTML = '<i class="fa-solid fa-heart"></i>';
+      break;
+    case 'tag-sig':
+      icon.classList.add('menu-icon--signature');
+      icon.innerHTML = signatureIconMarkup;
+      break;
+    case 'tag-spicy':
+      icon.classList.add('menu-icon--spicy');
+      icon.innerHTML = '&#127798;';
+      break;
+    case 'tag-gf':
+      icon.classList.add('menu-icon--gluten');
+      icon.innerHTML = '&#127806;';
+      break;
+    case 'tag-egg':
+      icon.classList.add('menu-icon--egg');
+      icon.innerHTML = '<i class="fa-solid fa-egg"></i>';
+      break;
+    default:
+      icon.textContent = label;
+  }
+
+  return icon;
+}
+
+function renderMenuIcons() {
+  document.querySelectorAll('.item .item-left').forEach((itemLeft) => {
+    const itemName = itemLeft.querySelector('.item-name');
+    const tags = itemLeft.querySelector('.tags');
+
+    if (!itemName || !tags || itemLeft.querySelector('.item-icons')) return;
+
+    let nameRow = itemLeft.querySelector('.item-name-row');
+    if (!nameRow) {
+      nameRow = document.createElement('div');
+      nameRow.className = 'item-name-row';
+      itemLeft.insertBefore(nameRow, itemName);
+      nameRow.appendChild(itemName);
+    }
+
+    const iconWrap = document.createElement('span');
+    iconWrap.className = 'item-icons';
+
+    tags.querySelectorAll('.tag').forEach((tag) => {
+      const label = tag.textContent.trim();
+      const tagClass = Array.from(tag.classList).find((className) => className.startsWith('tag-') && className !== 'tag');
+
+      if (!tagClass) return;
+
+      if (tagClass === 'tag-time') {
+        const time = document.createElement('span');
+        time.className = 'item-time-inline';
+        time.textContent = '(' + label.replace(/–/g, ' to ').replace(/-/g, ' to ') + ')';
+        iconWrap.appendChild(time);
+        return;
+      }
+
+      iconWrap.appendChild(buildMenuIcon(tagClass, label));
+    });
+
+    if (iconWrap.childNodes.length) {
+      nameRow.appendChild(iconWrap);
+      tags.classList.add('tags--converted');
+    }
+  });
+}
+
+function renderFooterLegend() {
+  const footer = document.querySelector('.allergen-footer');
+  if (!footer) return;
+
+  footer.innerHTML = [
+    '<div class="legend-copy">',
+    '<span class="legend-item"><span class="menu-icon menu-icon--vegan" aria-hidden="true"><i class="bi bi-check-square"></i></span>Vegan</span>',
+    '<span class="legend-item"><span class="menu-icon menu-icon--veg" aria-hidden="true"></span>Veg</span>',
+    '<span class="legend-item"><span class="menu-icon menu-icon--nonveg" aria-hidden="true"></span>Non-Veg</span>',
+    '<span class="legend-item"><span class="menu-icon menu-icon--healthy" aria-hidden="true"><i class="fa-solid fa-heart"></i></span>Healthy Option</span>',
+    '<span class="legend-item"><span class="menu-icon menu-icon--signature" aria-hidden="true">' + signatureIconMarkup + '</span>Signature</span>',
+    '<span class="legend-item"><span class="menu-icon menu-icon--spicy" aria-hidden="true">&#127798;</span>Spicy</span>',
+    '<span class="legend-item"><span class="menu-icon menu-icon--more-spicy" aria-hidden="true">&#127798;&#127798;</span>More Spicy</span>',
+    '<span class="legend-item"><span class="menu-icon menu-icon--nuts" aria-hidden="true">&#129372;</span>Nuts</span>',
+    '<span class="legend-item"><span class="menu-icon menu-icon--shellfish" aria-hidden="true">&#129424;</span>Shellfish</span>',
+    '<span class="legend-item"><span class="menu-icon menu-icon--gluten" aria-hidden="true">&#127806;</span>Gluten</span>',
+    '<span class="legend-item"><span class="menu-icon menu-icon--egg" aria-hidden="true"><i class="fa-solid fa-egg"></i></span>Egg</span>',
+    '<span class="legend-item"><span class="menu-icon menu-icon--dairy" aria-hidden="true">&#129371;</span>Dairy</span>',
+    '</div>',
+    '<div class="footer-note">Please speak to our associate for dietary requirements &amp; allergen information.</div>',
+    '<div>*Taxes extra as applicable. We use only refined vegetable oil for cooking.</div>'
+  ].join('');
+}
+
 // ═══ COVER INFO TOGGLE ═══
 function toggleCoverInfo() {
   const toggle = document.getElementById('coverInfoToggle');
@@ -1887,6 +2078,9 @@ window.addEventListener('scroll', function() {
 document.addEventListener('keydown', function(event) {
   if (event.key === 'Escape') closeMobileMenu();
 });
+
+renderMenuIcons();
+renderFooterLegend();
 </script>
 </body>
 </html>
