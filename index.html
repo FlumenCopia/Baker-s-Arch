@@ -1062,25 +1062,81 @@
       .item {
         grid-template-columns: minmax(0, 1fr) auto;
         gap: 8px 10px;
+        align-items: start;
       }
 
       .item-left {
         padding-right: 8px;
       }
 
+      .item-right {
+        min-width: 56px;
+      }
+
       .item-name-row {
-        align-items: flex-start;
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: start;
+        column-gap: 4px;
+        row-gap: 2px;
+        max-width: 100%;
+        width: 100%;
       }
 
       .item-name-leading-icons {
-        width: auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+        padding-top: 2px;
+      }
+
+      .item-name {
+        display: block;
+        min-width: 0;
+        font-size: 17px;
+        line-height: 1.15;
+        overflow-wrap: anywhere;
       }
 
       .item-icons {
-        flex-wrap: wrap;
-        white-space: normal;
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 3px;
+        white-space: nowrap;
+        flex-shrink: 0;
+        justify-self: end;
+        padding-top: 2px;
+      }
+
+      .item-time-inline {
+        white-space: nowrap;
+      }
+
+      .item-desc {
+        font-size: 12px;
+        line-height: 1.55;
+      }
+
+      .item-price {
+        font-size: 18px;
+      }
+
+      .item-price .rupee {
+        font-size: 13px;
+      }
+
+      .menu-icon {
+        width: 12px;
+        height: 12px;
+        font-size: 11px;
+      }
+
+      .menu-icon i,
+      .menu-icon svg {
+        transform: scale(0.92);
+        transform-origin: center;
       }
 
       .mobile-menu-sheet {
@@ -1353,7 +1409,7 @@
 
       <div class="item">
         <div class="item-left">
-          <div class="item-name-row"><span class="item-name">Messy Nachos</span></div>
+          <div class="item-name-row"><span class="item-name">Messy Nachos-veg/Chicken</span></div>
           <div class="tags"><span class="tag tag-veg">Veg</span>
             <span class="tag tag-nonveg">Non-Veg</span>
           
@@ -1399,7 +1455,7 @@
 
       <div class="item">
         <div class="item-left">
-          <div class="item-name-row"><span class="item-name">Glutted Bao</span></div>
+          <div class="item-name-row"><span class="item-name">Glutted Bao (Pork /Chicken)</span></div>
           <div class="tags"><span class="tag tag-nonveg">Non-Veg</span>
                       <span class="tag tag-gf"></span>
 
@@ -1536,7 +1592,7 @@
     <div class="items-card">
       <div class="item">
         <div class="item-left">
-          <div class="item-name">Kale & Quinoa</div>
+          <div class="item-name">Kale & Quinoa Regular/Tofu</div>
           <div class="tags"><span class="tag tag-vegan">Vegan</span>
           
           
@@ -1625,7 +1681,7 @@
     <div class="items-card" style="border-radius: 0 0 8px 8px; margin-top: 0; border-top: none;">
       <div class="item">
         <div class="item-left">
-          <div class="item-name">Quesadillas</div>
+          <div class="item-name">Quesadillas veg / Chicken / Beef</div>
           <div class="tags"><span class="tag tag-veg">Veg</span>
             
             
