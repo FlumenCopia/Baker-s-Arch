@@ -941,6 +941,7 @@
       color: var(--muted);
       margin-top: 2px;
       font-style: italic;
+      overflow-wrap: anywhere;
     }
 
     /* ═══════════════ SCROLL TO TOP ═══════════════ */
@@ -1070,7 +1071,9 @@
       }
 
       .item-right {
-        min-width: 56px;
+        min-width: 0;
+        max-width: 84px;
+        justify-self: end;
       }
 
       .item-name-row {
@@ -1120,7 +1123,8 @@
       }
 
       .item-price {
-        font-size: 18px;
+        font-size: 16px;
+        line-height: 1.15;
       }
 
       .item-price .rupee {
@@ -2145,9 +2149,7 @@ sour cream & cheese sauce, paired with hot Mexican salsa dip
 
       <div class="item">
         <div class="item-left">
-          <div class="item-name">Hawaiian Poke Bowl </div>
-                    <div class="item-name">Tofu/ Chicken/ Beef/ Pork
- </div>
+          <div class="item-name">Hawaiian Poke Bowl</div>
 
           <div class="tags"><span class="tag tag-veg">Veg</span>
 
@@ -2165,7 +2167,7 @@ sour cream & cheese sauce, paired with hot Mexican salsa dip
           <div class="price-variants">Tofu ₹560 · Chicken ₹640 · Beef ₹780 · Pork ₹890</div>
         </div>
         <div class="item-right">
-          <div class="item-price"><span class="rupee">₹</span>560/640/780/890</div>
+          <div class="item-price"><span class="rupee">₹</span>560+</div>
         </div>
       </div>
 
